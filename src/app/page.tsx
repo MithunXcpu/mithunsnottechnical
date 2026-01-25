@@ -39,6 +39,24 @@ const projects = [
     url: "https://spoke-pi.vercel.app",
     status: "Live Demo",
   },
+  {
+    name: "Captain Brunch",
+    tagline: "Split bills instantly",
+    description:
+      "No more awkward math at the table. Enter the bill, add your crew, and everyone pays their share in seconds with virtual cards.",
+    features: [
+      "One-tap bill splitting",
+      "Virtual payment cards",
+      "Share links to invite friends",
+      "Instant group payments",
+    ],
+    gradient: "from-orange-500 to-amber-500",
+    icon: (
+      <span className="text-3xl">🍳</span>
+    ),
+    url: "https://caption-brunch.vercel.app",
+    status: "Live Demo",
+  },
 ];
 
 export default function Home() {
