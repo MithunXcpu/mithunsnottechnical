@@ -10,13 +10,13 @@ const projects = [
       "Executive memo generation",
       "Compliance audit log",
     ],
-    gradient: "from-cyan-500 to-blue-600",
+    gradient: "from-green-500 to-emerald-600",
     icon: (
       <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
       </svg>
     ),
-    port: 3000,
+    url: "https://openexchange-demo.vercel.app",
     status: "Live Demo",
   },
   {
@@ -30,13 +30,13 @@ const projects = [
       "Tracker / Dashboard / Checklist",
       "Export JSON, CSV, or share",
     ],
-    gradient: "from-purple-500 to-pink-600",
+    gradient: "from-lime-500 to-green-600",
     icon: (
       <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
       </svg>
     ),
-    port: 3001,
+    url: "https://spoke-pi.vercel.app",
     status: "Live Demo",
   },
 ];
@@ -46,7 +46,7 @@ export default function Home() {
     <div className="min-h-screen bg-black text-white">
       {/* Hero */}
       <header className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-purple-500/10" />
+        <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 via-transparent to-emerald-500/10" />
         <div className="relative max-w-6xl mx-auto px-6 py-24 md:py-32">
           <div className="text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-zinc-900 rounded-full text-sm text-zinc-400 mb-8">
@@ -56,7 +56,7 @@ export default function Home() {
 
             <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
               mithuns
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-400">
                 nottechnical
               </span>
             </h1>
@@ -146,7 +146,7 @@ export default function Home() {
 
                 {/* CTA */}
                 <a
-                  href={`http://localhost:${project.port}`}
+                  href={project.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r ${project.gradient} rounded-xl font-semibold hover:opacity-90 transition-opacity`}
