@@ -57,6 +57,46 @@ const projects = [
     url: "https://caption-brunch.vercel.app",
     status: "Live Demo",
   },
+  {
+    name: "Interview Manager",
+    tagline: "Manage your job search like a pro",
+    description:
+      "Your personal CRM for job hunting. Connect Gmail, track companies on a Kanban board, share your availability link, and let recruiters book time with you.",
+    features: [
+      "Gmail integration",
+      "Kanban pipeline tracking",
+      "Personal scheduling link",
+      "Auto-reply templates",
+    ],
+    gradient: "from-violet-500 to-purple-600",
+    icon: (
+      <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+      </svg>
+    ),
+    url: "https://interview-manager-bay.vercel.app",
+    status: "Live Demo",
+  },
+  {
+    name: "AI Answers",
+    tagline: "Community-powered Q&A with ethical AI",
+    description:
+      "Ask questions, get AI-generated answers instantly. The community votes and contributes — human answers are weighted higher because knowledge should be shared.",
+    features: [
+      "AI-generated answers",
+      "Community upvoting",
+      "Full-text search",
+      "Human answers prioritized",
+    ],
+    gradient: "from-cyan-500 to-blue-600",
+    icon: (
+      <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+    url: "https://ai-answers-alpha.vercel.app",
+    status: "Live Demo",
+  },
 ];
 
 export default function Home() {
@@ -85,16 +125,6 @@ export default function Home() {
 
             <div className="flex items-center justify-center gap-4">
               <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 bg-zinc-900 hover:bg-zinc-800 rounded-full transition-colors"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                </svg>
-              </a>
-              <a
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -105,7 +135,7 @@ export default function Home() {
                 </svg>
               </a>
               <a
-                href="mailto:hello@example.com"
+                href="mailto:ctmithun97@gmail.com"
                 className="p-3 bg-zinc-900 hover:bg-zinc-800 rounded-full transition-colors"
               >
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -136,7 +166,11 @@ export default function Home() {
                   <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${project.gradient} flex items-center justify-center text-white`}>
                     {project.icon}
                   </div>
-                  <span className="px-3 py-1 bg-green-500/10 text-green-400 rounded-full text-xs font-medium">
+                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                    project.status === "Coming Soon"
+                      ? "bg-violet-500/10 text-violet-400"
+                      : "bg-green-500/10 text-green-400"
+                  }`}>
                     {project.status}
                   </span>
                 </div>
@@ -163,17 +197,26 @@ export default function Home() {
                 </ul>
 
                 {/* CTA */}
-                <a
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r ${project.gradient} rounded-xl font-semibold hover:opacity-90 transition-opacity`}
-                >
-                  View Demo
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </a>
+                {project.status === "Coming Soon" ? (
+                  <span className="inline-flex items-center gap-2 px-6 py-3 bg-zinc-800 text-zinc-400 rounded-xl font-semibold cursor-default">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    In Development
+                  </span>
+                ) : (
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r ${project.gradient} rounded-xl font-semibold hover:opacity-90 transition-opacity`}
+                  >
+                    View Demo
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </a>
+                )}
               </div>
             </div>
           ))}
