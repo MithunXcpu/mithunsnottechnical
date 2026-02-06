@@ -114,6 +114,33 @@ body {
   color: var(--green-dark);
 }
 
+/* ---- Tabs ---- */
+.tab-btn {
+  padding: 7px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #737373;
+  background: transparent;
+  border: 1px solid #e5e5e5;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.tab-btn:hover {
+  color: #0a0a0a;
+  border-color: #d4d4d4;
+}
+.tab-active {
+  background: #0a0a0a;
+  color: #fff;
+  border-color: #0a0a0a;
+}
+.tab-active:hover {
+  background: var(--green-dark);
+  border-color: var(--green-dark);
+  color: #fff;
+}
+
 /* ---- Utility ---- */
 .mono { font-family: var(--font-geist-mono), monospace; }
 .green { color: var(--green); }
