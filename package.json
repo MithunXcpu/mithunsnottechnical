@@ -6,24 +6,32 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "generate-post": "npx tsx scripts/generate-post.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.73.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.29.0",
+    "gray-matter": "^4.0.3",
+    "marked": "^17.0.1",
     "next": "16.1.4",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "tailwind-merge": "^3.4.0"
+    "rss-parser": "^3.13.0",
+    "tailwind-merge": "^3.4.0",
+    "youtube-transcript": "^1.2.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/marked": "^5.0.2",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.4",
     "tailwindcss": "^4",
+    "tsx": "^4.21.0",
     "typescript": "^5",
     "vercel": "^50.5.0"
   }
