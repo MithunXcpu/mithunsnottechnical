@@ -268,22 +268,22 @@ export default function InterviewersPage() {
 
       <div className="section-line max-w-3xl mx-auto" />
 
-      {/* Chatbot for gaps */}
+      {/* Combined: Ask Me Anything */}
       <section className="max-w-3xl mx-auto px-6 py-14">
-        <p className="mono text-xs tracking-widest uppercase green mb-6">
-          The Gaps — Explained
+        <p className="mono text-xs tracking-widest uppercase green mb-2">
+          Ask Me Anything
         </p>
-        <ChatBot />
-      </section>
-
-      <div className="section-line max-w-3xl mx-auto" />
-
-      {/* Q&A */}
-      <section className="max-w-3xl mx-auto px-6 py-14">
-        <p className="mono text-xs tracking-widest uppercase green mb-6">
-          Honest Answers
+        <p className="text-sm text-neutral-500 mb-8">
+          The hard questions, answered honestly. Click through the conversation or expand any question below.
         </p>
-        <div className="space-y-6 max-w-2xl">
+
+        {/* Chatbot */}
+        <div className="mb-10">
+          <ChatBot />
+        </div>
+
+        {/* Q&A */}
+        <div className="space-y-4">
           {qaItems.map((item) => (
             <QA key={item.q} q={item.q} a={item.a} />
           ))}
