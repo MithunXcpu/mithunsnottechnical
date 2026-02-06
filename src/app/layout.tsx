@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mithun Manjunatha — Builder",
-  description: "Ideas built fast. Working products that solve real problems.",
+  title: "mithunsnottechnical — Portfolio",
+  description: "I build products that ship. AI-native apps, dashboards, and tools.",
 };
 
 export default function RootLayout({
