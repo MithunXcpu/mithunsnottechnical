@@ -3,166 +3,80 @@
 import { useState } from "react";
 import Link from "next/link";
 
-function QA({ q, a }: { q: string; a: string }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="qa-item" onClick={() => setOpen(!open)} style={{ cursor: "pointer" }}>
-      <div className="flex items-start justify-between gap-3">
-        <p className="text-sm font-semibold">{q}</p>
-        <span
-          className="text-neutral-400 flex-shrink-0 mt-0.5"
-          style={{
-            fontSize: 18,
-            lineHeight: 1,
-            transition: "transform 0.2s",
-            transform: open ? "rotate(45deg)" : "none",
-          }}
-        >
-          +
-        </span>
-      </div>
-      {open && (
-        <p className="text-sm text-neutral-500 leading-relaxed mt-3">{a}</p>
-      )}
-    </div>
-  );
-}
-
-function ChatBot() {
-  const [step, setStep] = useState(0);
-  const messages = [
-    {
-      from: "them",
-      text: "I see some movement on your resume. Walk me through it.",
-    },
-    {
-      from: "me",
-      text: "Sure. Infor to Blend was a growth move — I wanted to go from ERP into fintech. Blend to Workiva was the same thing — moving from mid-market to enterprise. Both were intentional steps up.",
-    },
-    {
-      from: "them",
-      text: "What happened at Workiva and Datamaran?",
-    },
-    {
-      from: "me",
-      text: "Both were market-driven. Workiva had an ESG backlash — the political climate turned, deals dried up, and they cut headcount. Datamaran was the same story — small company, niche ESG product, low deal flow. I was closing deals but there just weren't enough at-bats.",
-    },
-    {
-      from: "them",
-      text: "And the gap between Workiva and Datamaran — Feb to Sep 2024?",
-    },
-    {
-      from: "me",
-      text: "That's when I went all-in on building. I taught myself AI development — prompt engineering, Claude, Next.js — and shipped every project you see on this portfolio. When I came back at Datamaran, I closed $700K+ in year one because I came back sharper.",
-    },
-    {
-      from: "them",
-      text: "What about Diligent?",
-    },
-    {
-      from: "me",
-      text: "Diligent was a great company but the Value Engineer role wasn't the right fit. It's a different function than Solutions Engineering — more ROI modeling, less technical selling. I recognized it quickly and I'm looking for a role that plays to my actual strengths.",
-    },
-    { from: "them", text: "So what are you looking for now?" },
-    {
-      from: "me",
-      text: "A Solutions Engineering role where I can own the technical sale end-to-end. I want to be in the room running demos, building POCs, and translating complex products into business outcomes. That's where I've driven the most revenue and where I'm happiest. If you want to talk more, reach out — mithundragon@gmail.com.",
-    },
-  ];
-
-  const visible = messages.slice(0, step + 1);
-  const hasMore = step < messages.length - 1;
-
-  return (
-    <div className="chat-container">
-      <div className="chat-header">
-        <span className="dot" style={{ width: 8, height: 8 }} />
-        <span className="mono text-xs" style={{ fontSize: 11 }}>
-          mithun — explaining the gaps
-        </span>
-      </div>
-      <div className="chat-body">
-        {visible.map((m, i) => (
-          <div
-            key={i}
-            className={`chat-bubble ${m.from === "me" ? "chat-me" : "chat-them"}`}
-          >
-            {m.text}
-          </div>
-        ))}
-      </div>
-      {hasMore && (
-        <button className="chat-next" onClick={() => setStep(step + 1)}>
-          Continue conversation
-        </button>
-      )}
-      {!hasMore && (
-        <p className="text-xs text-neutral-400 text-center py-3">
-          End of conversation
-        </p>
-      )}
-    </div>
-  );
-}
+const questions = [
+  {
+    label: "Walk me through your career moves",
+    answer:
+      "Infor to Blend was a growth move — ERP to fintech. Blend to Workiva was mid-market to enterprise. Both intentional steps up. Workiva and Datamaran were market-driven exits — ESG backlash killed deal flow at both companies. Diligent's Value Engineer role wasn't the right fit — it's a different function than Solutions Engineering. I recognized it fast. Now I'm looking for an SE role where I can own the full technical sale.",
+  },
+  {
+    label: "What about the gap in 2024?",
+    answer:
+      "Feb — Sep 2024. I went all-in on building. Taught myself AI development — prompt engineering, Claude, Next.js — and shipped every project on this portfolio. When I came back at Datamaran, I closed $350K+ because I came back sharper. The gap wasn't downtime. It was the most productive stretch of my career.",
+  },
+  {
+    label: "What's the hardest project you've worked on?",
+    answer:
+      "The Datamaran ESG compliance framework. Three overlapping regulatory frameworks — CSRD, SEC climate disclosure, ISSB — each with different timelines and scopes. Fortune 500 clients needed a single pane of glass across all three. I built the demo framework that mapped data points across standards. The hard part wasn't the tech — it was translating regulatory ambiguity into something a product team could build against.",
+  },
+  {
+    label: "What's your biggest weakness?",
+    answer:
+      "I over-index on speed. I'll ship a working demo in a day when the team expected a week — sounds good, but I sometimes skip the socialization step. In enterprise sales, getting buy-in matters as much as the solution itself. I've been intentional about slowing down to bring people along, even when the prototype is done.",
+  },
+  {
+    label: "Why SE and not pure engineering?",
+    answer:
+      "Because the best solution is the one that gets adopted. I've seen brilliant technical work fail because nobody translated it into business value. I sit at the intersection — I can build the demo, run discovery, model ROI, and present to a CFO. This portfolio proves it: I didn't just write code, I identified real problems and shipped working products.",
+  },
+  {
+    label: "Why should we hire you?",
+    answer:
+      "7 years in SaaS. $3M+ in closed ARR across four platforms. 100+ deals supported. ROI models north of 300%. I build working prototypes with AI faster than most teams can write a spec. And I make complex enterprise software feel simple. I'm not choosing between technical and strategic — I'm both.",
+  },
+];
 
 const experience = [
   {
     co: "Diligent",
     role: "Senior Value Engineer",
     dates: "May 2025 — Present",
-    desc: "GRC & AI governance solutions for boards. Value-based selling to Financial Services, Healthcare, Public Sector. Ultimately wasn't the right fit — value engineering is a different muscle than solutions engineering, and I recognized that quickly.",
+    desc: "GRC & AI governance solutions for boards. Value-based selling to Financial Services, Healthcare, Public Sector.",
     context: "Left — role wasn't the right fit",
   },
   {
     co: "Datamaran",
     role: "Senior Solution Engineer",
     dates: "Sep 2024 — Apr 2025",
-    desc: "AI-powered ESG analytics. Closed $700K+ ARR with Fortune 500 clients across CSRD, SEC climate disclosure, and ISSB compliance frameworks.",
+    desc: "AI-powered ESG analytics. Closed $350K+ ARR with Fortune 500 clients across CSRD, SEC, and ISSB compliance.",
     context: "Left — ESG market downturn, low deal flow",
   },
   {
     co: "Workiva",
     role: "Solution Engineer",
     dates: "Jul 2022 — Feb 2024",
-    desc: "Enterprise reporting & ESG platform. Won $700K+ ARR. Delivered complex ERP integration demos (SAP, Oracle, Workday) for Fortune 500 accounts.",
-    context: "Let go — ESG backlash led to market contraction and reduced headcount",
+    desc: "Enterprise reporting & ESG. Won $700K+ ARR. ERP integration demos (SAP, Oracle, Workday) for Fortune 500.",
+    context: "Let go — ESG backlash, market contraction",
   },
   {
     co: "Blend",
     role: "Mid-Market Solution Engineer",
     dates: "May 2021 — Jun 2022",
-    desc: "Digital lending platform. Beat quota 4/5 quarters. Built API integration demos with FIS, Jack Henry, and Fiserv for mid-market banks.",
+    desc: "Digital lending platform. Beat quota 4/5 quarters. API demos with FIS, Jack Henry, Fiserv.",
     context: "Left for growth — moved to enterprise at Workiva",
   },
   {
     co: "Infor",
     role: "Product Solutions Analyst",
     dates: "Oct 2019 — Jul 2020",
-    desc: "Enterprise ERP & HCM. Achieved 95% NPS across Healthcare and Manufacturing verticals. First SE role — learned the fundamentals.",
+    desc: "Enterprise ERP & HCM. 95% NPS. Healthcare and Manufacturing verticals. First SE role.",
     context: "Left for growth — moved to fintech at Blend",
   },
 ];
 
-const qaItems = [
-  {
-    q: "What's the hardest project you've worked on?",
-    a: "The Datamaran ESG compliance framework. I had to align an AI analytics platform with three overlapping regulatory frameworks — CSRD, SEC climate disclosure, and ISSB — each with different timelines, scopes, and reporting requirements. The clients were Fortune 500 companies who needed a single pane of glass across all three. I built the demo framework that mapped data points across standards, and it helped cut compliance cycles by 20%. The hard part wasn't the tech — it was translating regulatory ambiguity into something a product team could build against.",
-  },
-  {
-    q: "What's your biggest weakness?",
-    a: "I over-index on speed. I'll ship a working demo in a day when the team expected a week — which sounds good, but it means I sometimes skip the socialization step. I've learned that in enterprise sales, getting buy-in from stakeholders matters as much as the solution itself. I've been intentional about slowing down to bring people along, even when the prototype is already done.",
-  },
-  {
-    q: "Why Solutions Engineering and not pure engineering?",
-    a: "Because the best solution is the one that gets adopted. I've seen brilliant technical implementations fail because nobody translated them into business value. I sit at the intersection — I can build the demo, run the discovery call, model the ROI, and present to a CFO. That's rare, and it's where I create the most impact. This portfolio is proof: I didn't just write code, I identified real problems and shipped products that work.",
-  },
-  {
-    q: "Why should we hire you?",
-    a: "I've closed over $3M in ARR across four platforms, supporting 100+ deals in 7 years. I've delivered ROI models north of 300% for enterprise clients. I build working prototypes with AI faster than most teams can write a spec. And I do all of it while making complex enterprise software feel simple. I'm not choosing between technical and strategic — I'm both.",
-  },
-];
-
 export default function InterviewersPage() {
+  const [selected, setSelected] = useState<number | null>(null);
+
   return (
     <div className="min-h-screen">
       {/* Nav */}
@@ -240,8 +154,7 @@ export default function InterviewersPage() {
                   <p className="text-sm font-semibold">
                     {job.co}
                     <span className="text-neutral-400 font-normal">
-                      {" "}
-                      — {job.role}
+                      {" "}— {job.role}
                     </span>
                   </p>
                   <p className="text-sm text-neutral-500 leading-relaxed mt-1">
@@ -268,26 +181,60 @@ export default function InterviewersPage() {
 
       <div className="section-line max-w-3xl mx-auto" />
 
-      {/* Combined: Ask Me Anything */}
+      {/* Ask Me Anything — interactive multiple choice */}
       <section className="max-w-3xl mx-auto px-6 py-14">
         <p className="mono text-xs tracking-widest uppercase green mb-2">
           Ask Me Anything
         </p>
         <p className="text-sm text-neutral-500 mb-8">
-          The hard questions, answered honestly. Click through the conversation or expand any question below.
+          Pick a question. Get an honest answer.
         </p>
 
-        {/* Chatbot */}
-        <div className="mb-10">
-          <ChatBot />
-        </div>
-
-        {/* Q&A */}
-        <div className="space-y-4">
-          {qaItems.map((item) => (
-            <QA key={item.q} q={item.q} a={item.a} />
+        <div className="flex flex-wrap gap-2 mb-6">
+          {questions.map((q, i) => (
+            <button
+              key={i}
+              onClick={() => setSelected(selected === i ? null : i)}
+              className="text-left text-sm font-medium px-4 py-2.5 rounded-lg border transition-all"
+              style={{
+                background: selected === i ? "#0a0a0a" : "#fff",
+                color: selected === i ? "#fff" : "#525252",
+                borderColor: selected === i ? "#0a0a0a" : "#e5e5e5",
+              }}
+            >
+              {q.label}
+            </button>
           ))}
         </div>
+
+        {selected !== null && (
+          <div
+            className="rounded-xl border p-5"
+            style={{
+              background: "#fff",
+              borderColor: "#16a34a",
+              animation: "fadeIn 0.2s ease-out",
+            }}
+          >
+            <p className="text-sm font-semibold green mb-3">
+              {questions[selected].label}
+            </p>
+            <p className="text-sm text-neutral-600 leading-relaxed">
+              {questions[selected].answer}
+            </p>
+          </div>
+        )}
+
+        {selected === null && (
+          <div
+            className="rounded-xl border border-dashed p-5 text-center"
+            style={{ borderColor: "#d4d4d4" }}
+          >
+            <p className="text-sm text-neutral-400">
+              Pick a question above to see my answer.
+            </p>
+          </div>
+        )}
       </section>
 
       {/* CTA */}
