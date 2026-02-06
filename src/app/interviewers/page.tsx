@@ -33,24 +33,40 @@ function ChatBot() {
   const messages = [
     {
       from: "them",
-      text: "I noticed some gaps in your resume. Can you explain?",
+      text: "I see some movement on your resume. Walk me through it.",
     },
     {
       from: "me",
-      text: "Absolutely. Between Infor and Blend (Jul 2020 — May 2021), I took time to reset after sprinting through internships and my first full-time role. I needed to figure out what kind of career I actually wanted — not just chase the next title.",
+      text: "Sure. Infor to Blend was a growth move — I wanted to go from ERP into fintech. Blend to Workiva was the same thing — moving from mid-market to enterprise. Both were intentional steps up.",
     },
     {
       from: "them",
-      text: "And the gap between Workiva and Datamaran?",
+      text: "What happened at Workiva and Datamaran?",
     },
     {
       from: "me",
-      text: "Feb — Sep 2024. I was actively interviewing and building. That's when I started using AI tools seriously — prototyping apps, learning prompt engineering, shipping side projects. Every project on this portfolio came from that stretch.",
+      text: "Both were market-driven. Workiva had an ESG backlash — the political climate turned, deals dried up, and they cut headcount. Datamaran was the same story — small company, niche ESG product, low deal flow. I was closing deals but there just weren't enough at-bats.",
     },
-    { from: "them", text: "So it wasn't idle time?" },
+    {
+      from: "them",
+      text: "And the gap between Workiva and Datamaran — Feb to Sep 2024?",
+    },
     {
       from: "me",
-      text: "It was the most productive learning period of my career. I came back to Datamaran and closed $700K+ ARR in my first year. The time off made me sharper, not weaker.",
+      text: "That's when I went all-in on building. I taught myself AI development — prompt engineering, Claude, Next.js — and shipped every project you see on this portfolio. When I came back at Datamaran, I closed $700K+ in year one because I came back sharper.",
+    },
+    {
+      from: "them",
+      text: "What about Diligent?",
+    },
+    {
+      from: "me",
+      text: "Diligent was a great company but the Value Engineer role wasn't the right fit. It's a different function than Solutions Engineering — more ROI modeling, less technical selling. I recognized it quickly and I'm looking for a role that plays to my actual strengths.",
+    },
+    { from: "them", text: "So what are you looking for now?" },
+    {
+      from: "me",
+      text: "A Solutions Engineering role where I can own the technical sale end-to-end. I want to be in the room running demos, building POCs, and translating complex products into business outcomes. That's where I've driven the most revenue and where I'm happiest. If you want to talk more, reach out — mithundragon@gmail.com.",
     },
   ];
 
@@ -94,42 +110,47 @@ const experience = [
     co: "Diligent",
     role: "Senior Value Engineer",
     dates: "May 2025 — Present",
-    desc: "GRC & AI governance solutions for boards. Value-based selling to Financial Services, Healthcare, Public Sector.",
+    desc: "GRC & AI governance solutions for boards. Value-based selling to Financial Services, Healthcare, Public Sector. Ultimately wasn't the right fit — value engineering is a different muscle than solutions engineering, and I recognized that quickly.",
+    context: "Left — role wasn't the right fit",
   },
   {
     co: "Datamaran",
     role: "Senior Solution Engineer",
     dates: "Sep 2024 — Apr 2025",
-    desc: "AI-powered ESG analytics. Closed $700K+ ARR with Fortune 500 clients. CSRD/SEC/ISSB compliance.",
+    desc: "AI-powered ESG analytics. Closed $700K+ ARR with Fortune 500 clients across CSRD, SEC climate disclosure, and ISSB compliance frameworks.",
+    context: "Left — ESG market downturn, low deal flow",
   },
   {
     co: "Workiva",
     role: "Solution Engineer",
     dates: "Jul 2022 — Feb 2024",
-    desc: "Enterprise reporting & ESG. Won $700K ARR. Delivered ERP integration demos (SAP, Oracle, Workday).",
+    desc: "Enterprise reporting & ESG platform. Won $700K+ ARR. Delivered complex ERP integration demos (SAP, Oracle, Workday) for Fortune 500 accounts.",
+    context: "Let go — ESG backlash led to market contraction and reduced headcount",
   },
   {
     co: "Blend",
     role: "Mid-Market Solution Engineer",
     dates: "May 2021 — Jun 2022",
-    desc: "Digital lending platform. Beat quota 4/5 quarters. API integrations with FIS, Jack Henry, Fiserv.",
+    desc: "Digital lending platform. Beat quota 4/5 quarters. Built API integration demos with FIS, Jack Henry, and Fiserv for mid-market banks.",
+    context: "Left for growth — moved to enterprise at Workiva",
   },
   {
     co: "Infor",
     role: "Product Solutions Analyst",
     dates: "Oct 2019 — Jul 2020",
-    desc: "Enterprise ERP & HCM. Achieved 95% NPS. Healthcare and Manufacturing verticals.",
+    desc: "Enterprise ERP & HCM. Achieved 95% NPS across Healthcare and Manufacturing verticals. First SE role — learned the fundamentals.",
+    context: "Left for growth — moved to fintech at Blend",
   },
 ];
 
 const qaItems = [
   {
     q: "What's the hardest project you've worked on?",
-    a: "The Datamaran ESG compliance framework. I had to align an AI analytics platform with three overlapping regulatory frameworks — CSRD, SEC climate disclosure, and ISSB — each with different timelines, scopes, and reporting requirements. The clients were Fortune 500 companies who needed a single pane of glass across all three. I built the integration framework that mapped data points across standards, and it cut compliance cycles by 20%. The hard part wasn't the tech — it was translating regulatory ambiguity into something a product team could build against.",
+    a: "The Datamaran ESG compliance framework. I had to align an AI analytics platform with three overlapping regulatory frameworks — CSRD, SEC climate disclosure, and ISSB — each with different timelines, scopes, and reporting requirements. The clients were Fortune 500 companies who needed a single pane of glass across all three. I built the demo framework that mapped data points across standards, and it helped cut compliance cycles by 20%. The hard part wasn't the tech — it was translating regulatory ambiguity into something a product team could build against.",
   },
   {
     q: "What's your biggest weakness?",
-    a: "I over-index on speed. I'll ship a working demo in a day when the team expected a week — which sounds good, but it means I sometimes skip the socialization step. I've learned that in enterprise sales, getting buy-in from stakeholders matters as much as the solution itself. At Diligent, I've been intentional about slowing down to bring people along, even when the prototype is already done.",
+    a: "I over-index on speed. I'll ship a working demo in a day when the team expected a week — which sounds good, but it means I sometimes skip the socialization step. I've learned that in enterprise sales, getting buy-in from stakeholders matters as much as the solution itself. I've been intentional about slowing down to bring people along, even when the prototype is already done.",
   },
   {
     q: "Why Solutions Engineering and not pure engineering?",
@@ -137,7 +158,7 @@ const qaItems = [
   },
   {
     q: "Why should we hire you?",
-    a: "I've closed $1.4M+ in ARR across three platforms. I co-authored a GTM playbook that lifted close rates 18%. I build working prototypes with AI faster than most teams can write a spec. And I do all of it while making complex enterprise software feel simple. I'm not choosing between technical and strategic — I'm both.",
+    a: "I've closed over $3M in ARR across four platforms, supporting 100+ deals in 7 years. I've delivered ROI models north of 300% for enterprise clients. I build working prototypes with AI faster than most teams can write a spec. And I do all of it while making complex enterprise software feel simple. I'm not choosing between technical and strategic — I'm both.",
   },
 ];
 
@@ -191,10 +212,10 @@ export default function InterviewersPage() {
         </p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            { num: "$1.4M+", label: "ARR closed" },
-            { num: "6+", label: "Years in SaaS" },
-            { num: "150%+", label: "ROI models built" },
-            { num: "95%", label: "NPS achieved" },
+            { num: "$3M+", label: "ARR closed" },
+            { num: "7", label: "Years in SaaS" },
+            { num: "100+", label: "Deals supported" },
+            { num: "300%+", label: "ROI delivered" },
           ].map((s) => (
             <div key={s.label} className="stat-card">
               <p className="text-2xl font-bold green">{s.num}</p>
@@ -225,6 +246,9 @@ export default function InterviewersPage() {
                   </p>
                   <p className="text-sm text-neutral-500 leading-relaxed mt-1">
                     {job.desc}
+                  </p>
+                  <p className="text-xs mt-2" style={{ color: "#737373", fontStyle: "italic" }}>
+                    {job.context}
                   </p>
                 </div>
                 <p
@@ -263,6 +287,24 @@ export default function InterviewersPage() {
           {qaItems.map((item) => (
             <QA key={item.q} q={item.q} a={item.a} />
           ))}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="max-w-3xl mx-auto px-6 py-14">
+        <div className="stat-card text-center" style={{ padding: 32 }}>
+          <p className="text-lg font-semibold mb-2">Want to learn more?</p>
+          <p className="text-sm text-neutral-500 mb-5">
+            I&apos;m looking for my next Solutions Engineering role. Let&apos;s talk.
+          </p>
+          <div className="flex justify-center gap-3">
+            <a href="mailto:mithundragon@gmail.com" className="btn btn-dark">
+              Get in touch
+            </a>
+            <a href="https://linkedin.com/in/mithun-manjunatha" target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+              LinkedIn
+            </a>
+          </div>
         </div>
       </section>
 
