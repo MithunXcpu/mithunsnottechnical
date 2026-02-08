@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import ChatWidget from "@/components/ChatWidget";
 
 const personalProjects = [
   {
@@ -36,6 +37,33 @@ const personalProjects = [
       "No more awkward math at the table. Enter the bill, add your crew, everyone pays their share in seconds.",
     tech: ["Next.js", "Tailwind", "Payments"],
     url: "https://caption-brunch.vercel.app",
+  },
+  {
+    name: "TVCode",
+    tagline: "Software from your favorite shows — actually built",
+    description:
+      "Catalogs every app, UI, and tech from TV shows like Iron Man, Severance, and Mr. Robot — then recreates them as functional demos.",
+    tech: ["Next.js", "Framer Motion", "Interactive Demos"],
+    url: "https://tvcode.vercel.app",
+    building: true,
+  },
+  {
+    name: "PsychRef",
+    tagline: "Every reference. Every episode. Explained.",
+    description:
+      "The ultimate guide to every pop culture reference in Psych. All 8 seasons, 121 episodes, with links to the movies and shows referenced.",
+    tech: ["Next.js", "Tailwind", "Content DB"],
+    url: "https://psych-references.vercel.app",
+    building: true,
+  },
+  {
+    name: "IntentSight",
+    tagline: "Read the room before they read your price tag",
+    description:
+      "AI-powered buyer intent detection from video. Facial expressions, body language, and engagement signals analyzed in real-time.",
+    tech: ["Next.js", "AI Vision", "Analytics"],
+    url: "https://buyerintent.vercel.app",
+    building: true,
   },
 ];
 
@@ -232,6 +260,9 @@ export default function Home() {
           <p className="text-xs text-neutral-400">Built with Next.js + Claude</p>
         </div>
       </footer>
+
+      {/* ── Chat Widget ── */}
+      <ChatWidget />
     </div>
   );
 }
