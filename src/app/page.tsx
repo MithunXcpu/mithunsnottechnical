@@ -101,6 +101,33 @@ const interviewProjects = [
     url: "https://sovos-tax-mvp.vercel.app",
     emoji: "09",
   },
+  {
+    name: "ClearGov",
+    tagline: "Budget transparency for cities",
+    description:
+      "Solutions engineer demo for Rochester Hills — interactive budget explorer, department spend breakdowns, and resident-facing transparency tools.",
+    tech: ["Interactive Demo", "Data Viz", "Gov Tech"],
+    url: "https://cleargov-demo.vercel.app",
+    emoji: "10",
+  },
+  {
+    name: "ESG Mesh",
+    tagline: "B2B ESG customer engagement",
+    description:
+      "ESG scoring platform with portfolio-level sustainability metrics, peer benchmarking, and automated disclosure tracking for enterprise teams.",
+    tech: ["Next.js", "Claude AI", "Dashboard"],
+    url: "https://esg-mesh.vercel.app",
+    emoji: "11",
+  },
+  {
+    name: "Value Calculator",
+    tagline: "Prove the ROI, close the deal",
+    description:
+      "Interactive ROI modeling tool for sales teams. Input customer metrics, get a polished value story with projected savings and payback period.",
+    tech: ["Next.js", "Tailwind", "Analytics"],
+    url: "https://value-calculator-eta.vercel.app",
+    emoji: "12",
+  },
 ];
 
 /* ─── Animations ─── */
@@ -415,7 +442,7 @@ export default function Home() {
             >
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { value: "9+", label: "Projects shipped" },
+                  { value: "12+", label: "Projects shipped" },
                   { value: "5", label: "Currently building" },
                   { value: "AI", label: "Powered everything" },
                   { value: "0", label: "Days wasted" },
