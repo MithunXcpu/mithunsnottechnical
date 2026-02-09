@@ -81,17 +81,20 @@ export default function InterviewersPage() {
     <div className="min-h-screen">
       {/* Nav */}
       <nav
-        className="fixed top-0 w-full z-50 backdrop-blur-lg border-b border-neutral-100"
-        style={{ background: "rgba(250,250,250,0.8)" }}
+        className="fixed top-0 w-full z-50 backdrop-blur-xl"
+        style={{
+          background: "rgba(12, 12, 12, 0.8)",
+          borderBottom: "1px solid var(--color-border-subtle)",
+        }}
       >
         <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
           <a href="/" className="text-sm font-bold tracking-tight">
             mithun<span className="green">snottechnical</span>
           </a>
-          <div className="flex items-center gap-5">
+          <div className="hidden md:flex items-center gap-5">
             <a href="/#work" className="nav-link">Work</a>
             <Link href="/blog" className="nav-link">Blog</Link>
-            <Link href="/interviewers" className="nav-link" style={{ color: "#15803d" }}>For Interviewers</Link>
+            <Link href="/interviewers" className="nav-link" style={{ color: "var(--green)" }}>For Interviewers</Link>
             <a href="/#about" className="nav-link">About</a>
             <a href="https://github.com/MithunXcpu" target="_blank" rel="noopener noreferrer" className="nav-link">GitHub</a>
           </div>
@@ -101,13 +104,17 @@ export default function InterviewersPage() {
       {/* Header */}
       <header style={{ paddingTop: 120 }} className="pb-10 px-6">
         <div className="max-w-3xl mx-auto">
-          <p className="mono text-xs tracking-widest uppercase green mb-4">
+          <span
+            className="mono text-xs tracking-widest uppercase inline-flex items-center gap-2 mb-6"
+            style={{ color: "var(--green)" }}
+          >
+            <span className="w-8 h-px" style={{ background: "var(--green)" }} />
             For Interviewers
-          </p>
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+          </span>
+          <h1 className="font-display text-3xl md:text-5xl italic tracking-tight mb-3">
             What this page is — and why it exists.
           </h1>
-          <p className="text-base text-neutral-500 leading-relaxed max-w-2xl">
+          <p className="text-base leading-relaxed max-w-2xl" style={{ color: "var(--color-text-secondary)" }}>
             This isn&apos;t a traditional portfolio. I&apos;m a Solutions
             Engineer, not a developer. Every project here was built
             conversationally with AI — Claude, specifically — to demonstrate how
@@ -117,13 +124,17 @@ export default function InterviewersPage() {
         </div>
       </header>
 
-      <div className="section-line max-w-3xl mx-auto" />
+      <div className="glow-line max-w-3xl mx-auto" />
 
       {/* Key numbers */}
       <section className="max-w-3xl mx-auto px-6 py-14">
-        <p className="mono text-xs tracking-widest uppercase green mb-6">
+        <span
+          className="mono text-xs tracking-widest uppercase inline-flex items-center gap-2 mb-6"
+          style={{ color: "var(--green)" }}
+        >
+          <span className="w-8 h-px" style={{ background: "var(--green)" }} />
           Key Numbers
-        </p>
+        </span>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
             { num: "$3M+", label: "ARR closed" },
@@ -131,62 +142,77 @@ export default function InterviewersPage() {
             { num: "100+", label: "Deals supported" },
             { num: "300%+", label: "ROI delivered" },
           ].map((s) => (
-            <div key={s.label} className="stat-card">
-              <p className="text-2xl font-bold green">{s.num}</p>
-              <p className="text-xs text-neutral-500 mt-1">{s.label}</p>
+            <div
+              key={s.label}
+              className="rounded-2xl p-5 text-center"
+              style={{
+                background: "var(--color-surface-raised)",
+                border: "1px solid var(--color-border-subtle)",
+              }}
+            >
+              <p className="text-2xl font-bold font-display italic" style={{ color: "var(--green-light)" }}>{s.num}</p>
+              <p className="text-xs mt-1" style={{ color: "var(--color-text-tertiary)" }}>{s.label}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <div className="section-line max-w-3xl mx-auto" />
+      <div className="glow-line max-w-3xl mx-auto" />
 
       {/* Experience timeline */}
       <section className="max-w-3xl mx-auto px-6 py-14">
-        <p className="mono text-xs tracking-widest uppercase green mb-6">
+        <span
+          className="mono text-xs tracking-widest uppercase inline-flex items-center gap-2 mb-6"
+          style={{ color: "var(--green)" }}
+        >
+          <span className="w-8 h-px" style={{ background: "var(--green)" }} />
           Experience
-        </p>
+        </span>
         <div className="space-y-0">
           {experience.map((job, i) => (
-            <div key={job.co} className="timeline-item">
+            <div key={job.co} className="py-5">
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold">
+                  <p className="text-sm font-semibold" style={{ color: "var(--color-text-primary)" }}>
                     {job.co}
-                    <span className="text-neutral-400 font-normal">
+                    <span style={{ color: "var(--color-text-tertiary)", fontWeight: 400 }}>
                       {" "}— {job.role}
                     </span>
                   </p>
-                  <p className="text-sm text-neutral-500 leading-relaxed mt-1">
+                  <p className="text-sm leading-relaxed mt-1" style={{ color: "var(--color-text-secondary)" }}>
                     {job.desc}
                   </p>
-                  <p className="text-xs mt-2" style={{ color: "#737373", fontStyle: "italic" }}>
+                  <p className="text-xs mt-2" style={{ color: "var(--color-text-tertiary)", fontStyle: "italic" }}>
                     {job.context}
                   </p>
                 </div>
                 <p
-                  className="mono text-xs text-neutral-400 flex-shrink-0"
-                  style={{ fontSize: 11 }}
+                  className="mono text-xs flex-shrink-0"
+                  style={{ fontSize: 11, color: "var(--color-text-tertiary)" }}
                 >
                   {job.dates}
                 </p>
               </div>
               {i < experience.length - 1 && (
-                <div className="section-line mt-4" />
+                <div className="section-line mt-5" />
               )}
             </div>
           ))}
         </div>
       </section>
 
-      <div className="section-line max-w-3xl mx-auto" />
+      <div className="glow-line max-w-3xl mx-auto" />
 
-      {/* Ask Me Anything — interactive multiple choice */}
+      {/* Ask Me Anything */}
       <section className="max-w-3xl mx-auto px-6 py-14">
-        <p className="mono text-xs tracking-widest uppercase green mb-2">
+        <span
+          className="mono text-xs tracking-widest uppercase inline-flex items-center gap-2 mb-2"
+          style={{ color: "var(--green)" }}
+        >
+          <span className="w-8 h-px" style={{ background: "var(--green)" }} />
           Ask Me Anything
-        </p>
-        <p className="text-sm text-neutral-500 mb-8">
+        </span>
+        <p className="text-sm mb-8" style={{ color: "var(--color-text-secondary)" }}>
           Pick a question. Get an honest answer.
         </p>
 
@@ -195,11 +221,11 @@ export default function InterviewersPage() {
             <button
               key={i}
               onClick={() => setSelected(selected === i ? null : i)}
-              className="text-left text-sm font-medium px-4 py-2.5 rounded-lg border transition-all"
+              className="text-left text-sm font-medium px-4 py-2.5 rounded-lg transition-all"
               style={{
-                background: selected === i ? "#0a0a0a" : "#fff",
-                color: selected === i ? "#fff" : "#525252",
-                borderColor: selected === i ? "#0a0a0a" : "#e5e5e5",
+                background: selected === i ? "var(--green)" : "var(--color-surface-raised)",
+                color: selected === i ? "#fff" : "var(--color-text-secondary)",
+                border: `1px solid ${selected === i ? "var(--green)" : "var(--color-border-subtle)"}`,
               }}
             >
               {q.label}
@@ -209,17 +235,17 @@ export default function InterviewersPage() {
 
         {selected !== null && (
           <div
-            className="rounded-xl border p-5"
+            className="rounded-xl p-5"
             style={{
-              background: "#fff",
-              borderColor: "#16a34a",
+              background: "var(--color-surface-raised)",
+              border: "1px solid var(--green)",
               animation: "fadeIn 0.2s ease-out",
             }}
           >
             <p className="text-sm font-semibold green mb-3">
               {questions[selected].label}
             </p>
-            <p className="text-sm text-neutral-600 leading-relaxed">
+            <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
               {questions[selected].answer}
             </p>
           </div>
@@ -227,10 +253,12 @@ export default function InterviewersPage() {
 
         {selected === null && (
           <div
-            className="rounded-xl border border-dashed p-5 text-center"
-            style={{ borderColor: "#d4d4d4" }}
+            className="rounded-xl p-5 text-center"
+            style={{
+              border: "1px dashed var(--color-border-hover)",
+            }}
           >
-            <p className="text-sm text-neutral-400">
+            <p className="text-sm" style={{ color: "var(--color-text-tertiary)" }}>
               Pick a question above to see my answer.
             </p>
           </div>
@@ -239,16 +267,24 @@ export default function InterviewersPage() {
 
       {/* CTA */}
       <section className="max-w-3xl mx-auto px-6 py-14">
-        <div className="stat-card text-center" style={{ padding: 32 }}>
-          <p className="text-lg font-semibold mb-2">Want to learn more?</p>
-          <p className="text-sm text-neutral-500 mb-5">
+        <div
+          className="rounded-2xl text-center p-8"
+          style={{
+            background: "var(--color-surface-raised)",
+            border: "1px solid var(--color-border-subtle)",
+          }}
+        >
+          <p className="text-lg font-semibold mb-2 font-display italic" style={{ color: "var(--color-text-primary)" }}>
+            Want to learn more?
+          </p>
+          <p className="text-sm mb-5" style={{ color: "var(--color-text-secondary)" }}>
             I&apos;m looking for my next Solutions Engineering role. Let&apos;s talk.
           </p>
           <div className="flex justify-center gap-3">
-            <a href="mailto:mithundragon@gmail.com" className="btn btn-dark">
+            <a href="mailto:mithundragon@gmail.com" className="btn btn-primary">
               Get in touch
             </a>
-            <a href="https://linkedin.com/in/mithun-manjunatha" target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+            <a href="https://linkedin.com/in/mithun-manjunatha" target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
               LinkedIn
             </a>
           </div>
@@ -256,10 +292,16 @@ export default function InterviewersPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-neutral-100 bg-white mt-10">
+      <footer
+        className="mt-10"
+        style={{
+          borderTop: "1px solid var(--color-border-subtle)",
+          background: "var(--color-surface-raised)",
+        }}
+      >
         <div className="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
-          <p className="text-xs text-neutral-400">Mithun Manjunatha</p>
-          <p className="text-xs text-neutral-400">Built with Next.js + Claude</p>
+          <p className="text-xs" style={{ color: "var(--color-text-tertiary)" }}>Mithun Manjunatha</p>
+          <p className="text-xs" style={{ color: "var(--color-text-tertiary)" }}>Built with Next.js + Claude</p>
         </div>
       </footer>
     </div>

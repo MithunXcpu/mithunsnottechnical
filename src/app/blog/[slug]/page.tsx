@@ -25,16 +25,20 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     <div className="min-h-screen">
       {/* Nav */}
       <nav
-        className="fixed top-0 w-full z-50 backdrop-blur-lg border-b border-neutral-100"
-        style={{ background: "rgba(250,250,250,0.8)" }}
+        className="fixed top-0 w-full z-50 backdrop-blur-xl"
+        style={{
+          background: "rgba(12, 12, 12, 0.8)",
+          borderBottom: "1px solid var(--color-border-subtle)",
+        }}
       >
         <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
           <a href="/" className="text-sm font-bold tracking-tight">
             mithun<span className="green">snottechnical</span>
           </a>
-          <div className="flex items-center gap-5">
+          <div className="hidden md:flex items-center gap-5">
             <a href="/#work" className="nav-link">Work</a>
-            <Link href="/blog" className="nav-link" style={{ color: "#15803d" }}>Blog</Link>
+            <Link href="/blog" className="nav-link" style={{ color: "var(--green)" }}>Blog</Link>
+            <Link href="/interviewers" className="nav-link">For Interviewers</Link>
             <a href="/#about" className="nav-link">About</a>
             <a href="https://github.com/MithunXcpu" target="_blank" rel="noopener noreferrer" className="nav-link">GitHub</a>
           </div>
@@ -46,7 +50,8 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         <div className="max-w-2xl mx-auto">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-1.5 text-xs text-neutral-400 hover:text-neutral-600 transition-colors mb-8"
+            className="inline-flex items-center gap-1.5 text-xs transition-colors mb-8"
+            style={{ color: "var(--color-text-tertiary)" }}
           >
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M8 2L4 6l4 4" />
@@ -54,7 +59,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             Back to blog
           </Link>
 
-          <p className="mono text-xs text-neutral-400 mb-3" style={{ fontSize: 11 }}>
+          <p className="mono text-xs mb-3" style={{ fontSize: 11, color: "var(--color-text-tertiary)" }}>
             {new Date(post.date + "T00:00:00").toLocaleDateString("en-US", {
               month: "long",
               day: "numeric",
@@ -62,7 +67,10 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             })}
           </p>
 
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight leading-tight mb-4">
+          <h1
+            className="text-2xl md:text-3xl font-bold tracking-tight leading-tight mb-4 font-display italic"
+            style={{ color: "var(--color-text-primary)" }}
+          >
             {post.title}
           </h1>
 
@@ -74,18 +82,18 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             </div>
           )}
 
-          <div className="section-line mb-8" />
+          <div className="glow-line mb-8" />
 
           <div
             className="prose"
             dangerouslySetInnerHTML={{ __html: post.contentHtml }}
           />
 
-          <div className="section-line mt-12 mb-8" />
+          <div className="glow-line mt-12 mb-8" />
 
           <Link
             href="/blog"
-            className="btn btn-outline"
+            className="btn btn-ghost inline-flex items-center gap-2"
           >
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M8 2L4 6l4 4" />
@@ -96,10 +104,15 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       </article>
 
       {/* Footer */}
-      <footer className="border-t border-neutral-100 bg-white">
+      <footer
+        style={{
+          borderTop: "1px solid var(--color-border-subtle)",
+          background: "var(--color-surface-raised)",
+        }}
+      >
         <div className="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
-          <p className="text-xs text-neutral-400">Mithun Manjunatha</p>
-          <p className="text-xs text-neutral-400">Built with Next.js + Claude</p>
+          <p className="text-xs" style={{ color: "var(--color-text-tertiary)" }}>Mithun Manjunatha</p>
+          <p className="text-xs" style={{ color: "var(--color-text-tertiary)" }}>Built with Next.js + Claude</p>
         </div>
       </footer>
     </div>

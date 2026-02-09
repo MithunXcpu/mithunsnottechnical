@@ -13,16 +13,19 @@ export default function BlogPage() {
     <div className="min-h-screen">
       {/* Nav */}
       <nav
-        className="fixed top-0 w-full z-50 backdrop-blur-lg border-b border-neutral-100"
-        style={{ background: "rgba(250,250,250,0.8)" }}
+        className="fixed top-0 w-full z-50 backdrop-blur-xl"
+        style={{
+          background: "rgba(12, 12, 12, 0.8)",
+          borderBottom: "1px solid var(--color-border-subtle)",
+        }}
       >
         <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
           <a href="/" className="text-sm font-bold tracking-tight">
             mithun<span className="green">snottechnical</span>
           </a>
-          <div className="flex items-center gap-5">
+          <div className="hidden md:flex items-center gap-5">
             <a href="/#work" className="nav-link">Work</a>
-            <a href="/blog" className="nav-link" style={{ color: "#15803d" }}>Blog</a>
+            <a href="/blog" className="nav-link" style={{ color: "var(--green)" }}>Blog</a>
             <a href="/#about" className="nav-link">About</a>
             <a href="https://github.com/MithunXcpu" target="_blank" rel="noopener noreferrer" className="nav-link">GitHub</a>
           </div>
@@ -32,22 +35,28 @@ export default function BlogPage() {
       {/* Header */}
       <header style={{ paddingTop: 120 }} className="pb-10 px-6">
         <div className="max-w-3xl mx-auto">
-          <p className="mono text-xs tracking-widest uppercase green mb-4">Blog</p>
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+          <span
+            className="mono text-xs tracking-widest uppercase inline-flex items-center gap-2 mb-6"
+            style={{ color: "var(--green)" }}
+          >
+            <span className="w-8 h-px" style={{ background: "var(--green)" }} />
+            Blog
+          </span>
+          <h1 className="font-display text-3xl md:text-5xl italic tracking-tight mb-3">
             My takes, weekly.
           </h1>
-          <p className="text-base text-neutral-500 leading-relaxed max-w-lg">
+          <p className="text-base leading-relaxed max-w-lg" style={{ color: "var(--color-text-secondary)" }}>
             Derivative opinions inspired by Chamath and the All-In Podcast. Under 500 words. No fluff.
           </p>
         </div>
       </header>
 
-      <div className="section-line max-w-3xl mx-auto" />
+      <div className="glow-line max-w-3xl mx-auto" />
 
       {/* Post List */}
       <section className="max-w-3xl mx-auto px-6 py-12">
         {posts.length === 0 ? (
-          <p className="text-sm text-neutral-400">No posts yet. Check back Monday.</p>
+          <p className="text-sm" style={{ color: "var(--color-text-tertiary)" }}>No posts yet. Check back Monday.</p>
         ) : (
           <div className="space-y-0">
             {posts.map((post) => (
@@ -56,20 +65,23 @@ export default function BlogPage() {
                 href={`/blog/${post.slug}`}
                 className="block group"
               >
-                <article className="py-6 border-b border-neutral-100">
+                <article
+                  className="py-6"
+                  style={{ borderBottom: "1px solid var(--color-border-subtle)" }}
+                >
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 min-w-0">
-                      <p className="mono text-xs text-neutral-400 mb-2" style={{ fontSize: 11 }}>
+                      <p className="mono text-xs mb-2" style={{ fontSize: 11, color: "var(--color-text-tertiary)" }}>
                         {new Date(post.date + "T00:00:00").toLocaleDateString("en-US", {
                           month: "long",
                           day: "numeric",
                           year: "numeric",
                         })}
                       </p>
-                      <h2 className="text-base font-semibold mb-1.5 group-hover:text-green-700 transition-colors">
-                        {post.title}
+                      <h2 className="text-base font-semibold mb-1.5 transition-colors" style={{ color: "var(--color-text-primary)" }}>
+                        <span className="group-hover:text-emerald-accent">{post.title}</span>
                       </h2>
-                      <p className="text-sm text-neutral-500 leading-relaxed">
+                      <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
                         {post.excerpt}
                       </p>
                       {post.tags.length > 0 && (
@@ -100,10 +112,10 @@ export default function BlogPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-neutral-100 bg-white">
+      <footer style={{ borderTop: "1px solid var(--color-border-subtle)", background: "var(--color-surface-raised)" }}>
         <div className="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
-          <p className="text-xs text-neutral-400">Mithun Manjunatha</p>
-          <p className="text-xs text-neutral-400">Built with Next.js + Claude</p>
+          <p className="text-xs" style={{ color: "var(--color-text-tertiary)" }}>Mithun Manjunatha</p>
+          <p className="text-xs" style={{ color: "var(--color-text-tertiary)" }}>Built with Next.js + Claude</p>
         </div>
       </footer>
     </div>

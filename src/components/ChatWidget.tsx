@@ -164,14 +164,17 @@ export default function ChatWidget() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-semibold truncate">Mithun</p>
-                  <p className="text-xs" style={{ color: "#a3a3a3" }}>Usually replies within a few hours</p>
+                  <p className="text-xs" style={{ color: "var(--color-text-tertiary)" }}>Usually replies within a few hours</p>
                 </div>
                 <button
                   onClick={() => setOpen(false)}
-                  className="p-1 rounded hover:bg-neutral-100 transition-colors flex-shrink-0"
+                  className="p-1 rounded transition-colors flex-shrink-0"
+                  style={{ background: "transparent" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--color-surface-overlay)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
                   aria-label="Close chat"
                 >
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#737373" strokeWidth="1.5" strokeLinecap="round">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--color-text-tertiary)" strokeWidth="1.5" strokeLinecap="round">
                     <path d="M4 4l8 8M12 4l-8 8" />
                   </svg>
                 </button>
@@ -196,14 +199,15 @@ export default function ChatWidget() {
               </div>
 
               {/* Input */}
-              <div className="flex items-center gap-2 p-3 border-t" style={{ borderColor: "#f0f0f0" }}>
+              <div className="flex items-center gap-2 p-3" style={{ borderTop: "1px solid var(--color-border-subtle)" }}>
                 <input
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder={sent ? "Message sent!" : "Type a message..."}
-                  className="flex-1 text-sm bg-transparent outline-none placeholder:text-neutral-400"
+                  className="flex-1 text-sm bg-transparent outline-none"
+                  style={{ color: "var(--color-text-primary)" }}
                   disabled={sending}
                 />
                 <button
