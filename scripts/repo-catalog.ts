@@ -1,0 +1,154 @@
+export interface RepoCatalog {
+  name: string;
+  repo: string;
+  githubUrl: string;
+  liveUrl?: string;
+  summary: string;
+  appIdea: string;
+}
+
+export const repos: RepoCatalog[] = [
+  {
+    name: "Portfolio + Blog",
+    repo: "MithunXcpu/mithunsnottechnical",
+    githubUrl: "https://github.com/MithunXcpu/mithunsnottechnical",
+    liveUrl: "https://portfolio-ebon-five-92.vercel.app",
+    summary: "Personal portfolio and blog with automated content pipeline.",
+    appIdea: "ContentEngine — a SaaS version of the blog pipeline. Users connect a podcast RSS feed, pick a voice/angle, and get weekly derivative blog posts auto-published.",
+  },
+  {
+    name: "Printing in 2D",
+    repo: "MithunXcpu/printing-in-2d",
+    githubUrl: "https://github.com/MithunXcpu/printing-in-2d",
+    summary: "Platform for building and deploying small AI-powered tools quickly.",
+    appIdea: "ToolMint — a marketplace where anyone can describe a micro-tool in plain English, AI builds it, and it gets a shareable URL.",
+  },
+  {
+    name: "Spoke",
+    repo: "MithunXcpu/spoke",
+    githubUrl: "https://github.com/MithunXcpu/spoke",
+    summary: "Upload a screenshot of any UI or tool, and AI reverse-engineers it into a working web application.",
+    appIdea: "UIClone Pro — enterprise version that ingests competitor screenshots, generates working React components, and tracks UI changes over time.",
+  },
+  {
+    name: "Caption Brunch",
+    repo: "MithunXcpu/captain-brunch",
+    githubUrl: "https://github.com/MithunXcpu/captain-brunch",
+    summary: "Retro diner-themed bill splitting app.",
+    appIdea: "TabSettle — add receipt scanning (OCR), automatic item-to-person assignment via photo, and Venmo/Zelle integration.",
+  },
+  {
+    name: "Interview Manager v1",
+    repo: "MithunXcpu/interview-manager",
+    githubUrl: "https://github.com/MithunXcpu/interview-manager",
+    summary: "Hiring pipeline management tool for tracking candidates through interview stages.",
+    appIdea: "HireSignal — add AI scoring that analyzes interview transcripts, detects red/green flags, and generates a hire confidence score.",
+  },
+  {
+    name: "SignalRoom",
+    repo: "MithunXcpu/signalroom",
+    githubUrl: "https://github.com/MithunXcpu/signalroom",
+    summary: "AI-powered call intelligence platform that analyzes sales/support calls.",
+    appIdea: "CallCoach — real-time overlay during sales calls showing talk/listen ratio, suggested responses, competitor mentions, and buying signals.",
+  },
+  {
+    name: "ESG Mesh",
+    repo: "MithunXcpu/esg-mesh",
+    githubUrl: "https://github.com/MithunXcpu/esg-mesh",
+    liveUrl: "https://esg-mesh.vercel.app",
+    summary: "Environmental, Social, and Governance scoring platform.",
+    appIdea: "GreenLens — browser extension that shows an ESG score overlay when you visit any public company's website.",
+  },
+  {
+    name: "Value Calculator",
+    repo: "MithunXcpu/value-calculator",
+    githubUrl: "https://github.com/MithunXcpu/value-calculator",
+    liveUrl: "https://value-calculator-eta.vercel.app",
+    summary: "ROI modeling tool for businesses.",
+    appIdea: "DealMath — embeddable ROI calculator widget that any SaaS company can add to their pricing page.",
+  },
+  {
+    name: "Sovos Tax MVP",
+    repo: "MithunXcpu/sovos-tax-mvp",
+    githubUrl: "https://github.com/MithunXcpu/sovos-tax-mvp",
+    summary: "Tax compliance dashboard for managing tax obligations and filings.",
+    appIdea: "TaxRadar — AI monitors regulatory changes across all 50 states + federal, alerts when new rules affect your business.",
+  },
+  {
+    name: "BuyerIntent",
+    repo: "MithunXcpu/buyerintent",
+    githubUrl: "https://github.com/MithunXcpu/buyerintent",
+    summary: "Tool for detecting buyer intent signals from web behavior and digital footprints.",
+    appIdea: "IntentIQ — a Clearbit-style enrichment API that scores any email/domain for purchase intent.",
+  },
+  {
+    name: "Tiny CRM",
+    repo: "MithunXcpu/tiny-crm",
+    githubUrl: "https://github.com/MithunXcpu/tiny-crm",
+    summary: "Lightweight, no-bloat CRM for freelancers and small teams.",
+    appIdea: "InboxCRM — a CRM that lives in your email sidebar. Auto-creates contacts from emails, tracks conversations.",
+  },
+  {
+    name: "AntFarm",
+    repo: "MithunXcpu/antfarm",
+    githubUrl: "https://github.com/MithunXcpu/antfarm",
+    summary: "Multi-agent orchestration system where specialized AI agents collaborate on complex tasks.",
+    appIdea: "AgentFarm — a visual agent builder where you design agent teams with drag-and-drop. Define roles, communication flows, and handoff rules.",
+  },
+  {
+    name: "Ralph",
+    repo: "MithunXcpu/ralph",
+    githubUrl: "https://github.com/MithunXcpu/ralph",
+    summary: "Autonomous AI agent that takes PRDs and executes them as working software.",
+    appIdea: "PRD2App — a SaaS where PMs write requirements in a guided template, AI generates the app, deploys it to staging.",
+  },
+  {
+    name: "MLB News",
+    repo: "MithunXcpu/mlb-news",
+    githubUrl: "https://github.com/MithunXcpu/mlb-news",
+    summary: "Aggregates and displays MLB baseball news, scores, and updates.",
+    appIdea: "FanFeed — a white-label sports news app template. Pick any sport/league, auto-aggregate from 20+ sources, add AI-generated hot takes.",
+  },
+  {
+    name: "Job Tracker",
+    repo: "MithunXcpu/job-tracker",
+    githubUrl: "https://github.com/MithunXcpu/job-tracker",
+    summary: "Track job applications through stages with notes and follow-up reminders.",
+    appIdea: "ApplyPilot — auto-fill job applications, track everything, use AI to tailor resume/cover letter for each role.",
+  },
+  {
+    name: "TVCode",
+    repo: "MithunXcpu/tvcode",
+    githubUrl: "https://github.com/MithunXcpu/tvcode",
+    summary: "Display and interact with code on a TV screen.",
+    appIdea: "ScreenCast IDE — a TV-optimized coding environment controlled by voice or phone.",
+  },
+  {
+    name: "Valentine",
+    repo: "MithunXcpu/valentine",
+    githubUrl: "https://github.com/MithunXcpu/valentine",
+    summary: "A themed Valentine's Day web experience.",
+    appIdea: "SeasonalKit — a template library of holiday micro-apps. Each one is a shareable, customizable web experience.",
+  },
+  {
+    name: "Psych References",
+    repo: "MithunXcpu/psych-references",
+    githubUrl: "https://github.com/MithunXcpu/psych-references",
+    summary: "Curated collection of psychology references and mental models.",
+    appIdea: "MindMap Cards — flashcard app of 200+ cognitive biases and psychological principles with real-world examples.",
+  },
+  {
+    name: "ClearGov Demo",
+    repo: "MithunXcpu/cleargov-demo",
+    githubUrl: "https://github.com/MithunXcpu/cleargov-demo",
+    summary: "Government transparency and civic data platform demo.",
+    appIdea: "CivicPulse — a neighborhood-level dashboard showing where tax dollars go, upcoming city council votes, and one-click email to reps.",
+  },
+  {
+    name: "Personal Software Builder",
+    repo: "MithunXcpu/personal-software-builder",
+    githubUrl: "https://github.com/MithunXcpu/personal-software-builder",
+    summary: "Tool for building personal software tools tailored to specific workflow needs.",
+    appIdea: "MyToolKit — describe a tool in plain English, AI builds and deploys it.",
+  },
+];
