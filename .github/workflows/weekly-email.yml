@@ -2,7 +2,7 @@ name: Weekly Email Todo
 
 on:
   schedule:
-    - cron: "0 1 * * 1" # Every Monday at 1am UTC (Sunday 6pm PT / 9pm ET)
+    - cron: "0 15 * * 1" # Every Monday at 3pm UTC (8am PT / 11am ET) — after Scout + All-In blog
   workflow_dispatch: {} # Manual trigger
 
 jobs:
@@ -26,4 +26,6 @@ jobs:
           GH_PAT: ${{ secrets.GH_PAT }}
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          ANTFARM_SUPABASE_URL: ${{ secrets.ANTFARM_SUPABASE_URL }}
+          ANTFARM_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.ANTFARM_SUPABASE_SERVICE_ROLE_KEY }}
         run: npx tsx scripts/generate-weekly-email.ts
