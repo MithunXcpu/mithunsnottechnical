@@ -128,6 +128,15 @@ const interviewProjects = [
     url: "https://value-calculator-eta.vercel.app",
     emoji: "12",
   },
+  {
+    name: "Link Vault",
+    tagline: "Curated dev resources with agent catalog",
+    description:
+      "Searchable catalog of tweets, repos, articles, agents, and skills — all vetted. Quick-add staging, type filters, and tag-based discovery.",
+    tech: ["Next.js", "Tailwind", "TypeScript"],
+    url: "https://link-vault-tau.vercel.app",
+    emoji: "13",
+  },
 ];
 
 /* ─── Animations ─── */
