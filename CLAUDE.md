@@ -10,7 +10,6 @@ Personal portfolio site with blog automation (All-In Podcast derivative takes) a
 - Marked + gray-matter for Markdown blog rendering
 - @anthropic-ai/sdk for Claude-powered blog post generation
 - rss-parser + youtube-transcript for All-In Podcast transcript ingestion
-- twitter-api-v2 for auto-tweeting new posts
 - clsx + tailwind-merge for conditional class utilities
 
 ## Key Architecture
@@ -50,9 +49,8 @@ GitHub Actions cron (Monday 2pm UTC) triggers `generate-post.ts`:
 1. Pulls latest All-In Podcast transcript (RSS + YouTube transcript)
 2. Claude generates a derivative take blog post
 3. Commits markdown to `content/posts/`
-4. Auto-tweets via twitter-api-v2
 
-Requires GitHub Secrets: `ANTHROPIC_API_KEY`, `TWITTER_API_KEY`, `TWITTER_API_SECRET`, `TWITTER_ACCESS_TOKEN`, `TWITTER_ACCESS_SECRET`
+Requires GitHub Secrets: `ANTHROPIC_API_KEY`
 
 ## Conventions
 - Accent color: emerald (`--color-primary`)

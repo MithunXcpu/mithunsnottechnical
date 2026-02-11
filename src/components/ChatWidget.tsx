@@ -11,7 +11,7 @@ interface Message {
 }
 
 const STORAGE_KEY = "portfolio-chat-messages";
-const FORMSPREE_URL = "https://formspree.io/f/xplaceholder";
+const FORMSPREE_URL = "https://formspree.io/f/xnjbjvng";
 
 function loadMessages(): Message[] {
   if (typeof window === "undefined") return [];
