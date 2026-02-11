@@ -1,0 +1,32 @@
+# CLAUDE.md — {{PROJECT_NAME}}
+
+## What This Is
+{{DESCRIPTION}}
+
+## Tech Stack
+- Next.js 16, React 19, TypeScript
+- Tailwind CSS v4 (**NEVER** use custom `*` CSS reset or arbitrary bracket values like `bg-[#hex]`)
+- Framer Motion for animations
+- Lucide React for icons
+
+## Key Architecture
+- App Router with `src/` directory
+- `src/components/` — reusable UI components
+- `src/lib/` — utilities, helpers, API clients
+- `src/hooks/` — custom React hooks
+- `src/types/` — TypeScript interfaces
+- `src/data/` — mock data, constants
+
+## Commands
+```bash
+npm run dev    # Start dev server
+npm run build  # Production build
+npm run lint   # ESLint
+```
+
+## Conventions
+- Accent color: {{ACCENT_COLOR}} (`--color-primary`)
+- Dark theme throughout — use token classes (`bg-card`, `text-muted`, `border-border`)
+- Formspree for /contact page (needs form ID — currently placeholder)
+- Mobile-first responsive design
+- Icons from `lucide-react` only

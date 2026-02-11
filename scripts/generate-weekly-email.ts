@@ -2,6 +2,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import nodemailer from "nodemailer";
 import { createClient } from "@supabase/supabase-js";
 import { repos } from "./repo-catalog";
+import { checkForDuplicates, DedupWarning } from "./blog-dedup";
 
 const GITHUB_API = "https://api.github.com";
 
@@ -83,9 +84,9 @@ async function fetchRepoStatus(
   }
 }
 
-async function fetchAllStatuses(): Promise<RepoStatus[]> {
-  console.log(`Fetching status for ${repos.length} repos...`);
-  const results = await Promise.allSettled(repos.map(fetchRepoStatus));
+async function fetchAllStatuses(filteredRepos: typeof repos): Promise<RepoStatus[]> {
+  console.log(`Fetching status for ${filteredRepos.length} repos...`);
+  const results = await Promise.allSettled(filteredRepos.map(fetchRepoStatus));
 
   const statuses = results
     .filter(
@@ -98,12 +99,26 @@ async function fetchAllStatuses(): Promise<RepoStatus[]> {
   return statuses;
 }
 
-function buildEmailHtml(recommendations: string, statuses: RepoStatus[], scoutPicks: ScoutPick[]): string {
+interface EmailData {
+  recommendations: string;
+  statuses: RepoStatus[];
+  scoutPicks: ScoutPick[];
+  mode: "passion" | "interview";
+  dedupWarnings: DedupWarning[];
+  autoBuild: AutoBuildStatus | null;
+}
+
+function buildEmailHtml(data: EmailData): string {
+  const { recommendations, statuses, scoutPicks, mode, dedupWarnings, autoBuild } = data;
   const weekOf = new Date().toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
     year: "numeric",
   });
+
+  const modeBadgeColor = mode === "interview" ? "#6366f1" : "#10b981";
+  const modeBadgeBg = mode === "interview" ? "#eef2ff" : "#f0fdf4";
+  const modeLabel = mode.charAt(0).toUpperCase() + mode.slice(1);
 
   const recsHtml = recommendations
     .split("\n")
@@ -132,7 +147,10 @@ function buildEmailHtml(recommendations: string, statuses: RepoStatus[], scoutPi
 <head><meta charset="utf-8"></head>
 <body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:600px;margin:0 auto;padding:20px;background:#fafafa;">
   <div style="background:#fff;border-radius:12px;padding:32px;border:1px solid #e5e7eb;">
-    <h1 style="font-size:22px;margin:0 0 4px;">Weekly Build Plan</h1>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+      <h1 style="font-size:22px;margin:0;">Weekly Build Plan</h1>
+      <span style="display:inline-block;background:${modeBadgeBg};color:${modeBadgeColor};font-size:11px;font-weight:600;padding:4px 10px;border-radius:12px;border:1px solid ${modeBadgeColor}20;">Mode: ${modeLabel}</span>
+    </div>
     <p style="color:#888;font-size:13px;margin:0 0 24px;">Week of ${weekOf}</p>
 
     <div style="margin-bottom:32px;">
@@ -141,6 +159,10 @@ function buildEmailHtml(recommendations: string, statuses: RepoStatus[], scoutPi
     </div>
 
     ${buildScoutHtml(scoutPicks)}
+
+    ${buildAutoBuildHtml(autoBuild)}
+
+    ${buildDedupHtml(dedupWarnings)}
 
     <div>
       <h2 style="font-size:16px;color:#6366f1;margin:0 0 12px;">Repo Health</h2>
@@ -204,6 +226,105 @@ async function fetchScoutPicks(): Promise<ScoutPick[]> {
     console.error("Failed to fetch scout results:", err);
     return [];
   }
+}
+
+async function fetchProjectMode(): Promise<"passion" | "interview"> {
+  const url = process.env.ANTFARM_SUPABASE_URL;
+  const key = process.env.ANTFARM_SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) return "passion";
+
+  try {
+    const supabase = createClient(url, key);
+    const { data, error } = await supabase
+      .from("agent_memory")
+      .select("value")
+      .eq("agent_name", "system")
+      .eq("key", "project_mode")
+      .single();
+
+    if (error || !data?.value) return "passion";
+    const { mode } = data.value as { mode: string };
+    return mode === "interview" ? "interview" : "passion";
+  } catch {
+    return "passion";
+  }
+}
+
+interface AutoBuildStatus {
+  name: string;
+  description: string;
+  accent: string;
+  appIdea: string;
+  techStack: string[];
+  sourceUrl: string;
+  score: number;
+}
+
+async function fetchAutoBuildStatus(): Promise<AutoBuildStatus | null> {
+  const url = process.env.ANTFARM_SUPABASE_URL;
+  const key = process.env.ANTFARM_SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) return null;
+
+  try {
+    const supabase = createClient(url, key);
+    const { data, error } = await supabase
+      .from("agent_memory")
+      .select("value")
+      .eq("agent_name", "scout")
+      .eq("key", "auto_build_next")
+      .single();
+
+    if (error || !data?.value) return null;
+    return data.value as AutoBuildStatus;
+  } catch {
+    return null;
+  }
+}
+
+function buildDedupHtml(warnings: DedupWarning[]): string {
+  if (warnings.length === 0) {
+    return `
+    <div style="margin-bottom:32px;">
+      <h2 style="font-size:16px;color:#10b981;margin:0 0 12px;">Blog Health</h2>
+      <div style="padding:12px 16px;background:#f0fdf4;border-radius:8px;border:1px solid #bbf7d0;">
+        <p style="margin:0;font-size:13px;color:#166534;">All posts unique — no content overlap detected.</p>
+      </div>
+    </div>`;
+  }
+
+  const warningCards = warnings
+    .map(
+      (w) => `
+      <div style="padding:12px 16px;background:#fefce8;border-radius:8px;border:1px solid #fde68a;margin-bottom:8px;">
+        <p style="margin:0;font-size:13px;color:#92400e;">
+          <strong>${w.overlapPct}% overlap:</strong> "${w.postA}" and "${w.postB}"
+        </p>
+      </div>`
+    )
+    .join("");
+
+  return `
+    <div style="margin-bottom:32px;">
+      <h2 style="font-size:16px;color:#eab308;margin:0 0 12px;">Blog Health</h2>
+      <p style="font-size:13px;color:#888;margin:0 0 8px;">Found ${warnings.length} post(s) with high content overlap. Consider revising or differentiating.</p>
+      ${warningCards}
+    </div>`;
+}
+
+function buildAutoBuildHtml(build: AutoBuildStatus | null): string {
+  if (!build) return "";
+
+  return `
+    <div style="margin-bottom:32px;">
+      <h2 style="font-size:16px;color:#10b981;margin:0 0 12px;">Auto-Build Queued</h2>
+      <div style="padding:16px;background:#f0fdf4;border-radius:8px;border:1px solid #bbf7d0;">
+        <p style="margin:0 0 8px;font-size:15px;"><strong>${build.name}</strong></p>
+        <p style="margin:0 0 8px;font-size:13px;color:#333;">${build.description}</p>
+        <p style="margin:0 0 4px;font-size:12px;color:#888;">Score: ${build.score.toFixed(1)}/10 · Stack: ${build.techStack.join(", ")}</p>
+        <p style="margin:4px 0 0;font-size:12px;"><a href="${build.sourceUrl}" style="color:#3b82f6;">Source tweet</a></p>
+      </div>
+      <p style="font-size:12px;color:#888;margin:8px 0 0;">Will auto-scaffold at 4pm UTC Monday.</p>
+    </div>`;
 }
 
 function buildScoutHtml(picks: ScoutPick[]): string {
@@ -271,7 +392,15 @@ async function sendEmail(html: string) {
 async function main() {
   console.log("Generating weekly email...");
 
-  const statuses = await fetchAllStatuses();
+  // Fetch mode + filter repos (infra always included)
+  const mode = await fetchProjectMode();
+  console.log(`Mode: ${mode}`);
+  const filteredRepos = repos.filter(
+    (r) => r.category === mode || r.category === "infra"
+  );
+  console.log(`Filtered to ${filteredRepos.length} repos (${mode} + infra).`);
+
+  const statuses = await fetchAllStatuses(filteredRepos);
 
   const statusText = statuses
     .map(
@@ -289,7 +418,7 @@ async function main() {
     messages: [
       {
         role: "user",
-        content: `Here are my 20 side projects with their current status:\n\n${statusText}\n\nPick 5 projects I should focus on this week and give me specific action items.`,
+        content: `Here are my ${filteredRepos.length} side projects (${mode} mode) with their current status:\n\n${statusText}\n\nPick 5 projects I should focus on this week and give me specific action items.`,
       },
     ],
   });
@@ -301,12 +430,24 @@ async function main() {
     process.exit(1);
   }
 
-  console.log("Fetching scout picks...");
-  const scoutPicks = await fetchScoutPicks();
-  console.log(`Got ${scoutPicks.length} scout picks.`);
+  // Parallel: fetch scout picks, auto-build status, and run dedup check
+  console.log("Fetching scout picks, auto-build status, and blog health...");
+  const [scoutPicks, autoBuild, dedupWarnings] = await Promise.all([
+    fetchScoutPicks(),
+    fetchAutoBuildStatus(),
+    Promise.resolve(checkForDuplicates()),
+  ]);
+  console.log(`Got ${scoutPicks.length} scout picks, ${dedupWarnings.length} dedup warnings.`);
 
   console.log("Building email...");
-  const html = buildEmailHtml(recommendations, statuses, scoutPicks);
+  const html = buildEmailHtml({
+    recommendations,
+    statuses,
+    scoutPicks,
+    mode,
+    dedupWarnings,
+    autoBuild,
+  });
   await sendEmail(html);
 }
 

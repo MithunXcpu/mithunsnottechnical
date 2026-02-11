@@ -5,6 +5,7 @@ export interface RepoCatalog {
   liveUrl?: string;
   summary: string;
   appIdea: string;
+  category: "interview" | "passion" | "infra";
 }
 
 export const repos: RepoCatalog[] = [
@@ -15,6 +16,7 @@ export const repos: RepoCatalog[] = [
     liveUrl: "https://portfolio-ebon-five-92.vercel.app",
     summary: "Personal portfolio and blog with automated content pipeline.",
     appIdea: "ContentEngine — a SaaS version of the blog pipeline. Users connect a podcast RSS feed, pick a voice/angle, and get weekly derivative blog posts auto-published.",
+    category: "passion",
   },
   {
     name: "Printing in 2D",
@@ -22,6 +24,7 @@ export const repos: RepoCatalog[] = [
     githubUrl: "https://github.com/MithunXcpu/printing-in-2d",
     summary: "Platform for building and deploying small AI-powered tools quickly.",
     appIdea: "ToolMint — a marketplace where anyone can describe a micro-tool in plain English, AI builds it, and it gets a shareable URL.",
+    category: "passion",
   },
   {
     name: "Spoke",
@@ -29,6 +32,7 @@ export const repos: RepoCatalog[] = [
     githubUrl: "https://github.com/MithunXcpu/spoke",
     summary: "Upload a screenshot of any UI or tool, and AI reverse-engineers it into a working web application.",
     appIdea: "UIClone Pro — enterprise version that ingests competitor screenshots, generates working React components, and tracks UI changes over time.",
+    category: "passion",
   },
   {
     name: "Caption Brunch",
@@ -36,6 +40,7 @@ export const repos: RepoCatalog[] = [
     githubUrl: "https://github.com/MithunXcpu/captain-brunch",
     summary: "Retro diner-themed bill splitting app.",
     appIdea: "TabSettle — add receipt scanning (OCR), automatic item-to-person assignment via photo, and Venmo/Zelle integration.",
+    category: "passion",
   },
   {
     name: "Interview Manager v1",
@@ -43,6 +48,15 @@ export const repos: RepoCatalog[] = [
     githubUrl: "https://github.com/MithunXcpu/interview-manager",
     summary: "Hiring pipeline management tool for tracking candidates through interview stages.",
     appIdea: "HireSignal — add AI scoring that analyzes interview transcripts, detects red/green flags, and generates a hire confidence score.",
+    category: "interview",
+  },
+  {
+    name: "Interview Manager v2",
+    repo: "MithunXcpu/interview-manager-v2",
+    githubUrl: "https://github.com/MithunXcpu/interview-manager-v2",
+    summary: "Full-stack hiring pipeline with Prisma, Clerk auth, Claude SDK, Google APIs, and Kanban board.",
+    appIdea: "HireSignal Pro — AI-powered interview prep with mock interviews, real-time coaching, and candidate comparison dashboards.",
+    category: "interview",
   },
   {
     name: "SignalRoom",
@@ -50,6 +64,7 @@ export const repos: RepoCatalog[] = [
     githubUrl: "https://github.com/MithunXcpu/signalroom",
     summary: "AI-powered call intelligence platform that analyzes sales/support calls.",
     appIdea: "CallCoach — real-time overlay during sales calls showing talk/listen ratio, suggested responses, competitor mentions, and buying signals.",
+    category: "interview",
   },
   {
     name: "ESG Mesh",
@@ -58,6 +73,7 @@ export const repos: RepoCatalog[] = [
     liveUrl: "https://esg-mesh.vercel.app",
     summary: "Environmental, Social, and Governance scoring platform.",
     appIdea: "GreenLens — browser extension that shows an ESG score overlay when you visit any public company's website.",
+    category: "interview",
   },
   {
     name: "Value Calculator",
@@ -66,6 +82,7 @@ export const repos: RepoCatalog[] = [
     liveUrl: "https://value-calculator-eta.vercel.app",
     summary: "ROI modeling tool for businesses.",
     appIdea: "DealMath — embeddable ROI calculator widget that any SaaS company can add to their pricing page.",
+    category: "interview",
   },
   {
     name: "Sovos Tax MVP",
@@ -73,6 +90,7 @@ export const repos: RepoCatalog[] = [
     githubUrl: "https://github.com/MithunXcpu/sovos-tax-mvp",
     summary: "Tax compliance dashboard for managing tax obligations and filings.",
     appIdea: "TaxRadar — AI monitors regulatory changes across all 50 states + federal, alerts when new rules affect your business.",
+    category: "interview",
   },
   {
     name: "BuyerIntent",
@@ -80,6 +98,7 @@ export const repos: RepoCatalog[] = [
     githubUrl: "https://github.com/MithunXcpu/buyerintent",
     summary: "Tool for detecting buyer intent signals from web behavior and digital footprints.",
     appIdea: "IntentIQ — a Clearbit-style enrichment API that scores any email/domain for purchase intent.",
+    category: "interview",
   },
   {
     name: "Tiny CRM",
@@ -87,6 +106,7 @@ export const repos: RepoCatalog[] = [
     githubUrl: "https://github.com/MithunXcpu/tiny-crm",
     summary: "Lightweight, no-bloat CRM for freelancers and small teams.",
     appIdea: "InboxCRM — a CRM that lives in your email sidebar. Auto-creates contacts from emails, tracks conversations.",
+    category: "passion",
   },
   {
     name: "AntFarm",
@@ -94,6 +114,7 @@ export const repos: RepoCatalog[] = [
     githubUrl: "https://github.com/MithunXcpu/antfarm",
     summary: "Multi-agent orchestration system where specialized AI agents collaborate on complex tasks.",
     appIdea: "AgentFarm — a visual agent builder where you design agent teams with drag-and-drop. Define roles, communication flows, and handoff rules.",
+    category: "infra",
   },
   {
     name: "Ralph",
@@ -101,6 +122,7 @@ export const repos: RepoCatalog[] = [
     githubUrl: "https://github.com/MithunXcpu/ralph",
     summary: "Autonomous AI agent that takes PRDs and executes them as working software.",
     appIdea: "PRD2App — a SaaS where PMs write requirements in a guided template, AI generates the app, deploys it to staging.",
+    category: "passion",
   },
   {
     name: "MLB News",
@@ -108,6 +130,7 @@ export const repos: RepoCatalog[] = [
     githubUrl: "https://github.com/MithunXcpu/mlb-news",
     summary: "Aggregates and displays MLB baseball news, scores, and updates.",
     appIdea: "FanFeed — a white-label sports news app template. Pick any sport/league, auto-aggregate from 20+ sources, add AI-generated hot takes.",
+    category: "passion",
   },
   {
     name: "Job Tracker",
@@ -115,6 +138,7 @@ export const repos: RepoCatalog[] = [
     githubUrl: "https://github.com/MithunXcpu/job-tracker",
     summary: "Track job applications through stages with notes and follow-up reminders.",
     appIdea: "ApplyPilot — auto-fill job applications, track everything, use AI to tailor resume/cover letter for each role.",
+    category: "passion",
   },
   {
     name: "TVCode",
@@ -122,6 +146,7 @@ export const repos: RepoCatalog[] = [
     githubUrl: "https://github.com/MithunXcpu/tvcode",
     summary: "Display and interact with code on a TV screen.",
     appIdea: "ScreenCast IDE — a TV-optimized coding environment controlled by voice or phone.",
+    category: "passion",
   },
   {
     name: "Valentine",
@@ -129,6 +154,7 @@ export const repos: RepoCatalog[] = [
     githubUrl: "https://github.com/MithunXcpu/valentine",
     summary: "A themed Valentine's Day web experience.",
     appIdea: "SeasonalKit — a template library of holiday micro-apps. Each one is a shareable, customizable web experience.",
+    category: "passion",
   },
   {
     name: "Psych References",
@@ -136,6 +162,7 @@ export const repos: RepoCatalog[] = [
     githubUrl: "https://github.com/MithunXcpu/psych-references",
     summary: "Curated collection of psychology references and mental models.",
     appIdea: "MindMap Cards — flashcard app of 200+ cognitive biases and psychological principles with real-world examples.",
+    category: "passion",
   },
   {
     name: "ClearGov Demo",
@@ -143,6 +170,7 @@ export const repos: RepoCatalog[] = [
     githubUrl: "https://github.com/MithunXcpu/cleargov-demo",
     summary: "Government transparency and civic data platform demo.",
     appIdea: "CivicPulse — a neighborhood-level dashboard showing where tax dollars go, upcoming city council votes, and one-click email to reps.",
+    category: "interview",
   },
   {
     name: "Personal Software Builder",
@@ -150,5 +178,6 @@ export const repos: RepoCatalog[] = [
     githubUrl: "https://github.com/MithunXcpu/personal-software-builder",
     summary: "Tool for building personal software tools tailored to specific workflow needs.",
     appIdea: "MyToolKit — describe a tool in plain English, AI builds and deploys it.",
+    category: "passion",
   },
 ];

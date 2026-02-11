@@ -3,6 +3,7 @@ import { YoutubeTranscript } from "youtube-transcript";
 import Parser from "rss-parser";
 import fs from "fs";
 import path from "path";
+import { checkNewPostAgainstExisting } from "./blog-dedup";
 
 const YOUTUBE_RSS =
   "https://www.youtube.com/feeds/videos.xml?channel_id=UCESLZhusAkFfsNsApnjF_Cg";
@@ -127,6 +128,16 @@ async function main() {
   }
 
   const { postTitle, excerpt, tags, body } = parseResponse(responseText);
+
+  // Pre-publish dedup check
+  const dedupWarnings = checkNewPostAgainstExisting(body, postTitle);
+  if (dedupWarnings.length > 0) {
+    console.warn("[dedup] Content overlap detected (publishing anyway):");
+    for (const w of dedupWarnings) {
+      console.warn(`  "${w.postA}" overlaps with "${w.postB}" — ${w.overlapPct}%`);
+    }
+  }
+
   const today = new Date().toISOString().slice(0, 10);
   const slug = slugify(postTitle);
   const filename = `${today}-${slug}.md`;
