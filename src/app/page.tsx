@@ -33,22 +33,13 @@ const personalProjects = [
     emoji: "02",
   },
   {
-    name: "Interview Manager",
-    tagline: "Your hiring pipeline, handled",
-    description:
-      "Track candidates through stages, send interview invites, share booking links, and let recruiters self-schedule.",
-    tech: ["Next.js", "Clerk", "Email"],
-    url: "https://interview-manager-bay.vercel.app",
-    emoji: "03",
-  },
-  {
-    name: "Captain Brunch",
+    name: "Caption Brunch",
     tagline: "Split bills instantly",
     description:
       "No more awkward math at the table. Enter the bill, add your crew, everyone pays their share in seconds.",
     tech: ["Next.js", "Tailwind", "Payments"],
-    url: "https://caption-brunch.vercel.app",
-    emoji: "04",
+    url: "https://caption-brunch-mithundragon-1665s-projects.vercel.app",
+    emoji: "03",
   },
   {
     name: "TVCode",
@@ -58,7 +49,7 @@ const personalProjects = [
     tech: ["Next.js", "Framer Motion", "Interactive Demos"],
     url: "https://tvcode.vercel.app",
     building: true,
-    emoji: "05",
+    emoji: "04",
   },
   {
     name: "PsychRef",
@@ -68,7 +59,7 @@ const personalProjects = [
     tech: ["Next.js", "Tailwind", "Content DB"],
     url: "https://psych-references.vercel.app",
     building: true,
-    emoji: "06",
+    emoji: "05",
   },
   {
     name: "IntentSight",
@@ -78,7 +69,55 @@ const personalProjects = [
     tech: ["Next.js", "AI Vision", "Analytics"],
     url: "https://buyerintent.vercel.app",
     building: true,
+    emoji: "06",
+  },
+  {
+    name: "PilotDrop",
+    tagline: "The audience is the network",
+    description:
+      "AI-generated pilot episodes drop on social media. Viewers vote to greenlight full seasons — making the audience the network.",
+    tech: ["Next.js", "AI Generation", "Voting"],
+    url: "https://pilotdrop.vercel.app",
+    building: true,
     emoji: "07",
+  },
+  {
+    name: "Antfarm",
+    tagline: "Autonomous agent task dispatch",
+    description:
+      "Vercel cron heartbeat dispatches tasks from a Supabase queue to specialized Claude agents. Dashboard shows live agent activity and task results.",
+    tech: ["Next.js", "Claude SDK", "Supabase"],
+    url: "https://antfarm-liart.vercel.app",
+    building: true,
+    emoji: "08",
+  },
+  {
+    name: "Tiny CRM",
+    tagline: "Lightweight contacts and deals",
+    description:
+      "Minimal CRM for managing contacts, deals, and tasks. Data-dense tables, pipeline view, and quick actions without the bloat.",
+    tech: ["Next.js", "Supabase", "Tailwind"],
+    url: "https://tiny-crm-nu.vercel.app",
+    emoji: "09",
+  },
+  {
+    name: "Job Tracker",
+    tagline: "Autonomous job application scout",
+    description:
+      "Dashboard and CLI agent that uses Browserbase and Stagehand to browse, discover, and track job applications automatically.",
+    tech: ["Next.js", "Browserbase", "Supabase"],
+    url: "https://job-tracker-lyart-eight.vercel.app",
+    building: true,
+    emoji: "10",
+  },
+  {
+    name: "MLB News",
+    tagline: "AI-generated baseball show pilots",
+    description:
+      "Prototype for voting on AI-generated MLB show concepts. Pick your favorite pilots and see what the crowd thinks.",
+    tech: ["HTML", "CSS", "Voting"],
+    url: "https://mlb-news.vercel.app",
+    emoji: "11",
   },
 ];
 
@@ -88,9 +127,18 @@ const interviewProjects = [
     tagline: "AI-Powered Call Intelligence",
     description:
       "Real-time AI analysis for investor calls. Detects key statements, risk disclosures, and commitments as they happen.",
-    tech: ["Next.js", "OpenAI", "Real-time Audio"],
-    url: "https://openexchange-demo.vercel.app",
-    emoji: "08",
+    tech: ["Next.js", "AI Analysis", "Real-time Audio"],
+    url: "https://signalroom-prototype.vercel.app",
+    emoji: "12",
+  },
+  {
+    name: "Interview Manager v2",
+    tagline: "Full-featured hiring pipeline with AI prep",
+    description:
+      "Interview scheduling, email sync, calendar integration, offer tracking, and wellness monitoring. The complete hiring command center.",
+    tech: ["Next.js", "Clerk", "Prisma", "Claude AI"],
+    url: "https://interview-manager-v2.vercel.app",
+    emoji: "13",
   },
   {
     name: "Sovos Tax Dashboard",
@@ -99,7 +147,7 @@ const interviewProjects = [
       "AI-powered compliance dashboard with jurisdiction tracking, filing calendar, and automated insights for enterprise teams.",
     tech: ["Next.js", "Claude AI", "Dashboard"],
     url: "https://sovos-tax-mvp.vercel.app",
-    emoji: "09",
+    emoji: "14",
   },
   {
     name: "ClearGov",
@@ -108,7 +156,7 @@ const interviewProjects = [
       "Solutions engineer demo for Rochester Hills — interactive budget explorer, department spend breakdowns, and resident-facing transparency tools.",
     tech: ["Interactive Demo", "Data Viz", "Gov Tech"],
     url: "https://cleargov-demo.vercel.app",
-    emoji: "10",
+    emoji: "15",
   },
   {
     name: "ESG Mesh",
@@ -117,7 +165,7 @@ const interviewProjects = [
       "ESG scoring platform with portfolio-level sustainability metrics, peer benchmarking, and automated disclosure tracking for enterprise teams.",
     tech: ["Next.js", "Claude AI", "Dashboard"],
     url: "https://esg-mesh.vercel.app",
-    emoji: "11",
+    emoji: "16",
   },
   {
     name: "Value Calculator",
@@ -126,7 +174,7 @@ const interviewProjects = [
       "Interactive ROI modeling tool for sales teams. Input customer metrics, get a polished value story with projected savings and payback period.",
     tech: ["Next.js", "Tailwind", "Analytics"],
     url: "https://value-calculator-eta.vercel.app",
-    emoji: "12",
+    emoji: "17",
   },
   {
     name: "Link Vault",
@@ -135,7 +183,34 @@ const interviewProjects = [
       "Searchable catalog of tweets, repos, articles, agents, and skills — all vetted. Quick-add staging, type filters, and tag-based discovery.",
     tech: ["Next.js", "Tailwind", "TypeScript"],
     url: "https://link-vault-tau.vercel.app",
-    emoji: "13",
+    emoji: "18",
+  },
+  {
+    name: "GuideDot",
+    tagline: "AI-powered demo overlay for SEs",
+    description:
+      "Invisible pulsing dots guide sales engineers through live product demos with AI-generated talk tracks and precise click sequences.",
+    tech: ["Next.js", "AI Generation", "Overlay"],
+    url: "https://guidedot-snowy.vercel.app",
+    emoji: "19",
+  },
+  {
+    name: "BYOS",
+    tagline: "Enterprise software certification locker",
+    description:
+      "Engineers submit tools for security scanning and certification. Certified tools enter a locked Software Locker approved for enterprise use.",
+    tech: ["Next.js", "Supabase", "Security"],
+    url: "https://byos-mu.vercel.app",
+    emoji: "20",
+  },
+  {
+    name: "Engage OS",
+    tagline: "AI-native compliance interviewer",
+    description:
+      "Claude-powered compliance engine where CSRD, SOX, GDPR, ISO 27001, and ERM each get their own specialized framework agent.",
+    tech: ["Next.js", "Claude SDK", "Supabase"],
+    url: "https://engage-os.vercel.app",
+    emoji: "21",
   },
 ];
 
