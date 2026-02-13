@@ -119,6 +119,26 @@ const personalProjects = [
     url: "https://mlb-news.vercel.app",
     emoji: "11",
   },
+  {
+    name: "SE Tools",
+    tagline: "The full SE demo lifecycle toolkit",
+    description:
+      "Pre-demo prep, live demo overlays, and post-demo handoff tools for solutions engineers. Customer research, talk track engine, and golden demo builder.",
+    tech: ["Next.js", "AI Agents", "Overlays"],
+    url: "https://setools.vercel.app",
+    building: true,
+    emoji: "12",
+  },
+  {
+    name: "Creating Taste",
+    tagline: "Certify your design instincts",
+    description:
+      "Online assessment that measures taste, creativity, architecture thinking, research skills, and planning rigor. Pass all five dimensions, get certified.",
+    tech: ["Next.js", "AI Scoring", "Certification"],
+    url: "https://creatingtaste.vercel.app",
+    building: true,
+    emoji: "13",
+  },
 ];
 
 const interviewProjects = [
@@ -129,7 +149,7 @@ const interviewProjects = [
       "Real-time AI analysis for investor calls. Detects key statements, risk disclosures, and commitments as they happen.",
     tech: ["Next.js", "AI Analysis", "Real-time Audio"],
     url: "https://signalroom-prototype.vercel.app",
-    emoji: "12",
+    emoji: "14",
   },
   {
     name: "Interview Manager v2",
@@ -138,7 +158,7 @@ const interviewProjects = [
       "Interview scheduling, email sync, calendar integration, offer tracking, and wellness monitoring. The complete hiring command center.",
     tech: ["Next.js", "Clerk", "Prisma", "Claude AI"],
     url: "https://interview-manager-v2.vercel.app",
-    emoji: "13",
+    emoji: "15",
   },
   {
     name: "Sovos Tax Dashboard",
@@ -147,7 +167,7 @@ const interviewProjects = [
       "AI-powered compliance dashboard with jurisdiction tracking, filing calendar, and automated insights for enterprise teams.",
     tech: ["Next.js", "Claude AI", "Dashboard"],
     url: "https://sovos-tax-mvp.vercel.app",
-    emoji: "14",
+    emoji: "16",
   },
   {
     name: "ClearGov",
@@ -156,7 +176,7 @@ const interviewProjects = [
       "Solutions engineer demo for Rochester Hills — interactive budget explorer, department spend breakdowns, and resident-facing transparency tools.",
     tech: ["Interactive Demo", "Data Viz", "Gov Tech"],
     url: "https://cleargov-demo.vercel.app",
-    emoji: "15",
+    emoji: "17",
   },
   {
     name: "ESG Mesh",
@@ -165,7 +185,7 @@ const interviewProjects = [
       "ESG scoring platform with portfolio-level sustainability metrics, peer benchmarking, and automated disclosure tracking for enterprise teams.",
     tech: ["Next.js", "Claude AI", "Dashboard"],
     url: "https://esg-mesh.vercel.app",
-    emoji: "16",
+    emoji: "18",
   },
   {
     name: "Value Calculator",
@@ -174,7 +194,7 @@ const interviewProjects = [
       "Interactive ROI modeling tool for sales teams. Input customer metrics, get a polished value story with projected savings and payback period.",
     tech: ["Next.js", "Tailwind", "Analytics"],
     url: "https://value-calculator-eta.vercel.app",
-    emoji: "17",
+    emoji: "19",
   },
   {
     name: "Link Vault",
@@ -183,7 +203,7 @@ const interviewProjects = [
       "Searchable catalog of tweets, repos, articles, agents, and skills — all vetted. Quick-add staging, type filters, and tag-based discovery.",
     tech: ["Next.js", "Tailwind", "TypeScript"],
     url: "https://link-vault-tau.vercel.app",
-    emoji: "18",
+    emoji: "20",
   },
   {
     name: "GuideDot",
@@ -192,7 +212,7 @@ const interviewProjects = [
       "Invisible pulsing dots guide sales engineers through live product demos with AI-generated talk tracks and precise click sequences.",
     tech: ["Next.js", "AI Generation", "Overlay"],
     url: "https://guidedot-snowy.vercel.app",
-    emoji: "19",
+    emoji: "21",
   },
   {
     name: "BYOS",
@@ -201,7 +221,7 @@ const interviewProjects = [
       "Engineers submit tools for security scanning and certification. Certified tools enter a locked Software Locker approved for enterprise use.",
     tech: ["Next.js", "Supabase", "Security"],
     url: "https://byos-mu.vercel.app",
-    emoji: "20",
+    emoji: "22",
   },
   {
     name: "Engage OS",
@@ -210,7 +230,7 @@ const interviewProjects = [
       "Claude-powered compliance engine where CSRD, SOX, GDPR, ISO 27001, and ERM each get their own specialized framework agent.",
     tech: ["Next.js", "Claude SDK", "Supabase"],
     url: "https://engage-os.vercel.app",
-    emoji: "21",
+    emoji: "23",
   },
 ];
 
@@ -526,7 +546,7 @@ export default function Home() {
             >
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { value: "12+", label: "Projects shipped" },
+                  { value: "23+", label: "Projects shipped" },
                   { value: "5", label: "Currently building" },
                   { value: "AI", label: "Powered everything" },
                   { value: "0", label: "Days wasted" },
