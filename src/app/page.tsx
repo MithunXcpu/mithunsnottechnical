@@ -1,7 +1,13 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useTransform,
+  Reorder,
+} from "framer-motion";
 import dynamic from "next/dynamic";
 import ChatWidget from "@/components/ChatWidget";
 
@@ -10,9 +16,21 @@ const Aurora = dynamic(() => import("@/components/effects/Aurora"), {
   loading: () => <div className="w-full h-full bg-surface" />,
 });
 
+/* ─── Types ─── */
+
+type Project = {
+  name: string;
+  tagline: string;
+  description: string;
+  tech: string[];
+  url: string;
+  building?: boolean;
+  emoji: string;
+};
+
 /* ─── Data ─── */
 
-const personalProjects = [
+const personalProjects: Project[] = [
   {
     name: "Printing in 2D",
     tagline: "Talk to an AI. Build a micro-tool.",
@@ -139,18 +157,6 @@ const personalProjects = [
     building: true,
     emoji: "13",
   },
-];
-
-const interviewProjects = [
-  {
-    name: "SignalRoom",
-    tagline: "AI-Powered Call Intelligence",
-    description:
-      "Real-time AI analysis for investor calls. Detects key statements, risk disclosures, and commitments as they happen.",
-    tech: ["Next.js", "AI Analysis", "Real-time Audio"],
-    url: "https://signalroom-prototype.vercel.app",
-    emoji: "14",
-  },
   {
     name: "Interview Manager v2",
     tagline: "Full-featured hiring pipeline with AI prep",
@@ -158,25 +164,7 @@ const interviewProjects = [
       "Interview scheduling, email sync, calendar integration, offer tracking, and wellness monitoring. The complete hiring command center.",
     tech: ["Next.js", "Clerk", "Prisma", "Claude AI"],
     url: "https://interview-manager-v2.vercel.app",
-    emoji: "15",
-  },
-  {
-    name: "Sovos Tax Dashboard",
-    tagline: "Tax compliance, simplified",
-    description:
-      "AI-powered compliance dashboard with jurisdiction tracking, filing calendar, and automated insights for enterprise teams.",
-    tech: ["Next.js", "Claude AI", "Dashboard"],
-    url: "https://sovos-tax-mvp.vercel.app",
-    emoji: "16",
-  },
-  {
-    name: "ClearGov",
-    tagline: "Budget transparency for cities",
-    description:
-      "Solutions engineer demo for Rochester Hills — interactive budget explorer, department spend breakdowns, and resident-facing transparency tools.",
-    tech: ["Interactive Demo", "Data Viz", "Gov Tech"],
-    url: "https://cleargov-demo.vercel.app",
-    emoji: "17",
+    emoji: "14",
   },
   {
     name: "ESG Mesh",
@@ -185,7 +173,7 @@ const interviewProjects = [
       "ESG scoring platform with portfolio-level sustainability metrics, peer benchmarking, and automated disclosure tracking for enterprise teams.",
     tech: ["Next.js", "Claude AI", "Dashboard"],
     url: "https://esg-mesh.vercel.app",
-    emoji: "18",
+    emoji: "15",
   },
   {
     name: "Value Calculator",
@@ -194,7 +182,7 @@ const interviewProjects = [
       "Interactive ROI modeling tool for sales teams. Input customer metrics, get a polished value story with projected savings and payback period.",
     tech: ["Next.js", "Tailwind", "Analytics"],
     url: "https://value-calculator-eta.vercel.app",
-    emoji: "19",
+    emoji: "16",
   },
   {
     name: "Link Vault",
@@ -203,7 +191,7 @@ const interviewProjects = [
       "Searchable catalog of tweets, repos, articles, agents, and skills — all vetted. Quick-add staging, type filters, and tag-based discovery.",
     tech: ["Next.js", "Tailwind", "TypeScript"],
     url: "https://link-vault-tau.vercel.app",
-    emoji: "20",
+    emoji: "17",
   },
   {
     name: "GuideDot",
@@ -212,7 +200,7 @@ const interviewProjects = [
       "Invisible pulsing dots guide sales engineers through live product demos with AI-generated talk tracks and precise click sequences.",
     tech: ["Next.js", "AI Generation", "Overlay"],
     url: "https://guidedot-snowy.vercel.app",
-    emoji: "21",
+    emoji: "18",
   },
   {
     name: "BYOS",
@@ -221,7 +209,7 @@ const interviewProjects = [
       "Engineers submit tools for security scanning and certification. Certified tools enter a locked Software Locker approved for enterprise use.",
     tech: ["Next.js", "Supabase", "Security"],
     url: "https://byos-mu.vercel.app",
-    emoji: "22",
+    emoji: "19",
   },
   {
     name: "Engage OS",
@@ -230,7 +218,67 @@ const interviewProjects = [
       "Claude-powered compliance engine where CSRD, SOX, GDPR, ISO 27001, and ERM each get their own specialized framework agent.",
     tech: ["Next.js", "Claude SDK", "Supabase"],
     url: "https://engage-os.vercel.app",
+    emoji: "20",
+  },
+  {
+    name: "PitchView",
+    tagline: "Presales image + text viewer",
+    description:
+      "Drop in up to 35 images and annotate each with text in a clean 50/50 layout. Lock sections to prevent edits during live demos.",
+    tech: ["Next.js", "Tailwind", "TypeScript"],
+    url: "https://pitchview-theta.vercel.app",
+    building: true,
+    emoji: "21",
+  },
+  {
+    name: "Discovery Agent",
+    tagline: "AI-powered pre-demo research",
+    description:
+      "Gathers company intel, profiles stakeholders, scores deal readiness, and generates targeted demo strategies for solutions engineers.",
+    tech: ["Next.js", "Claude AI", "Anthropic SDK"],
+    url: "https://discovery-agent-blond.vercel.app",
+    building: true,
+    emoji: "22",
+  },
+  {
+    name: "Speed Reader",
+    tagline: "Train yourself to read faster",
+    description:
+      "Flashes words one at a time at configurable WPM with built-in passages, custom text paste, and a challenge mode that ramps up speed progressively.",
+    tech: ["Next.js", "Framer Motion", "PDF.js"],
+    url: "https://speed-reader-mithundragon-1665s-projects.vercel.app",
+    building: true,
     emoji: "23",
+  },
+];
+
+const interviewProjects: Project[] = [
+  {
+    name: "SignalRoom",
+    tagline: "AI-Powered Call Intelligence",
+    description:
+      "Real-time AI analysis for investor calls. Detects key statements, risk disclosures, and commitments as they happen.",
+    tech: ["Next.js", "AI Analysis", "Real-time Audio"],
+    url: "https://signalroom-prototype.vercel.app",
+    emoji: "01",
+  },
+  {
+    name: "Sovos Tax Dashboard",
+    tagline: "Tax compliance, simplified",
+    description:
+      "AI-powered compliance dashboard with jurisdiction tracking, filing calendar, and automated insights for enterprise teams.",
+    tech: ["Next.js", "Claude AI", "Dashboard"],
+    url: "https://sovos-tax-mvp.vercel.app",
+    emoji: "02",
+  },
+  {
+    name: "ClearGov",
+    tagline: "Budget transparency for cities",
+    description:
+      "Solutions engineer demo for Rochester Hills — interactive budget explorer, department spend breakdowns, and resident-facing transparency tools.",
+    tech: ["Interactive Demo", "Data Viz", "Gov Tech"],
+    url: "https://cleargov-demo.vercel.app",
+    emoji: "03",
   },
 ];
 
@@ -248,15 +296,6 @@ const fadeUp = {
     y: 0,
     filter: "blur(0px)",
     transition: { duration: 0.7, ease: [0.25, 0.4, 0.25, 1] as const },
-  },
-};
-
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.95 },
-  show: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.6, ease: [0.25, 0.4, 0.25, 1] as const },
   },
 };
 
@@ -293,84 +332,94 @@ function SplitText({
   );
 }
 
-/* ─── Project Card ─── */
+/* ─── Project Card (Draggable) ─── */
 
-function ProjectCard({
-  p,
-  i,
-}: {
-  p: (typeof personalProjects)[number];
-  i: number;
-}) {
-  const cardRef = useRef<HTMLAnchorElement>(null);
+function ProjectCard({ p }: { p: Project }) {
+  const isDragging = useRef(false);
 
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    const card = cardRef.current;
-    if (!card) return;
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
     card.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
     card.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
   }, []);
 
+  const handleClick = useCallback(() => {
+    if (!isDragging.current) {
+      window.open(p.url, "_blank", "noopener,noreferrer");
+    }
+  }, [p.url]);
+
   return (
-    <motion.a
-      ref={cardRef}
+    <Reorder.Item
+      value={p}
+      onDragStart={() => {
+        isDragging.current = true;
+      }}
+      onDragEnd={() => {
+        setTimeout(() => {
+          isDragging.current = false;
+        }, 100);
+      }}
+      whileDrag={{
+        scale: 1.04,
+        boxShadow: "0 10px 40px rgba(0,0,0,0.4)",
+        zIndex: 50,
+        cursor: "grabbing",
+      }}
       variants={fadeUp}
-      href={p.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="card block p-6 group"
+      className="card block p-6 group cursor-grab active:cursor-grabbing list-none"
       onMouseMove={handleMouseMove}
     >
-      <div className="flex items-start justify-between mb-5">
-        <span className="project-number">{p.emoji}</span>
-        <div className="flex items-center gap-1.5 mt-2">
-          <span
-            className={`dot ${
-              "building" in p && p.building ? "dot-building" : ""
-            }`}
-          />
-          <span
-            className="mono text-[10px] uppercase tracking-wider"
-            style={{ color: "var(--color-text-tertiary)" }}
+      <div onClick={handleClick} className="cursor-pointer">
+        <div className="flex items-start justify-between mb-5">
+          <span className="project-number">{p.emoji}</span>
+          <div className="flex items-center gap-1.5 mt-2">
+            <span
+              className={`dot ${p.building ? "dot-building" : ""}`}
+            />
+            <span
+              className="mono text-[10px] uppercase tracking-wider"
+              style={{ color: "var(--color-text-tertiary)" }}
+            >
+              {p.building ? "Building" : "Live"}
+            </span>
+          </div>
+        </div>
+
+        <div className="flex items-start justify-between gap-2 mb-1.5">
+          <h3 className="text-lg font-semibold tracking-tight">{p.name}</h3>
+          <svg
+            className="card-arrow w-4 h-4 mt-1.5 flex-shrink-0"
+            viewBox="0 0 14 14"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           >
-            {"building" in p && p.building ? "Building" : "Live"}
-          </span>
+            <path d="M4 10L10 4M10 4H5M10 4V9" />
+          </svg>
+        </div>
+        <p className="text-sm font-medium mb-2" style={{ color: "var(--green)" }}>
+          {p.tagline}
+        </p>
+        <p
+          className="text-sm leading-relaxed mb-5"
+          style={{ color: "var(--color-text-secondary)" }}
+        >
+          {p.description}
+        </p>
+
+        <div className="flex flex-wrap gap-1.5">
+          {p.tech.map((t) => (
+            <span key={t} className="card-tag">
+              {t}
+            </span>
+          ))}
         </div>
       </div>
-
-      <div className="flex items-start justify-between gap-2 mb-1.5">
-        <h3 className="text-lg font-semibold tracking-tight">{p.name}</h3>
-        <svg
-          className="card-arrow w-4 h-4 mt-1.5 flex-shrink-0"
-          viewBox="0 0 14 14"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M4 10L10 4M10 4H5M10 4V9" />
-        </svg>
-      </div>
-      <p className="text-sm font-medium mb-2" style={{ color: "var(--green)" }}>
-        {p.tagline}
-      </p>
-      <p
-        className="text-sm leading-relaxed mb-5"
-        style={{ color: "var(--color-text-secondary)" }}
-      >
-        {p.description}
-      </p>
-
-      <div className="flex flex-wrap gap-1.5">
-        {p.tech.map((t) => (
-          <span key={t} className="card-tag">
-            {t}
-          </span>
-        ))}
-      </div>
-    </motion.a>
+    </Reorder.Item>
   );
 }
 
@@ -378,7 +427,11 @@ function ProjectCard({
 
 export default function Home() {
   const [tab, setTab] = useState<"personal" | "interview">("personal");
-  const projects = tab === "personal" ? personalProjects : interviewProjects;
+  const [personalList, setPersonalList] = useState<Project[]>(personalProjects);
+  const [interviewList, setInterviewList] = useState<Project[]>(interviewProjects);
+
+  const projects = tab === "personal" ? personalList : interviewList;
+  const setProjects = tab === "personal" ? setPersonalList : setInterviewList;
 
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll();
@@ -546,11 +599,11 @@ export default function Home() {
             >
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { value: "23+", label: "Projects shipped" },
+                  { value: "26+", label: "Projects shipped" },
                   { value: "5", label: "Currently building" },
                   { value: "AI", label: "Powered everything" },
                   { value: "0", label: "Days wasted" },
-                ].map((stat, si) => (
+                ].map((stat) => (
                   <div
                     key={stat.label}
                     className="p-5 rounded-2xl"
@@ -638,7 +691,7 @@ export default function Home() {
                 className="mono text-xs hidden sm:block"
                 style={{ color: "var(--color-text-tertiary)" }}
               >
-                {projects.length} projects
+                {projects.length} projects &middot; drag to reorder
               </span>
             </div>
           </motion.div>
@@ -662,18 +715,21 @@ export default function Home() {
           <div className="glow-line mb-10" />
 
           <AnimatePresence mode="wait">
-            <motion.div
+            <Reorder.Group
               key={tab}
+              axis="y"
+              values={projects}
+              onReorder={setProjects}
               variants={stagger}
               initial="hidden"
               animate="show"
               exit={{ opacity: 0, transition: { duration: 0.15 } }}
-              className="grid md:grid-cols-2 gap-5"
+              className="grid md:grid-cols-2 gap-5 list-none p-0 m-0"
             >
-              {projects.map((p, i) => (
-                <ProjectCard key={p.name} p={p} i={i} />
+              {projects.map((p) => (
+                <ProjectCard key={p.name} p={p} />
               ))}
-            </motion.div>
+            </Reorder.Group>
           </AnimatePresence>
         </div>
       </section>
