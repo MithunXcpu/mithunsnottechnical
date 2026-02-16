@@ -41,12 +41,13 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             <Link href="/interviewers" className="nav-link">For Interviewers</Link>
             <a href="/#about" className="nav-link">About</a>
             <a href="https://github.com/MithunXcpu" target="_blank" rel="noopener noreferrer" className="nav-link">GitHub</a>
+            <a href="https://linkedin.com/in/mithun-manjunatha" target="_blank" rel="noopener noreferrer" className="nav-link">LinkedIn</a>
           </div>
         </div>
       </nav>
 
       {/* Post */}
-      <article style={{ paddingTop: 120 }} className="pb-20 px-6">
+      <article style={{ paddingTop: 96 }} className="pb-20 px-6">
         <div className="max-w-2xl mx-auto">
           <Link
             href="/blog"
@@ -68,7 +69,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           </p>
 
           <h1
-            className="text-2xl md:text-3xl font-bold tracking-tight leading-tight mb-4 font-display italic"
+            className="text-3xl md:text-4xl font-bold tracking-tight leading-tight mb-4 font-display italic"
             style={{ color: "var(--color-text-primary)" }}
           >
             {post.title}

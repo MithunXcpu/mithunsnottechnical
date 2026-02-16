@@ -26,6 +26,7 @@ export default function BlogPage() {
           <div className="hidden md:flex items-center gap-5">
             <a href="/#work" className="nav-link">Work</a>
             <a href="/blog" className="nav-link" style={{ color: "var(--green)" }}>Blog</a>
+            <a href="/interviewers" className="nav-link">For Interviewers</a>
             <a href="/#about" className="nav-link">About</a>
             <a href="https://github.com/MithunXcpu" target="_blank" rel="noopener noreferrer" className="nav-link">GitHub</a>
           </div>
@@ -33,7 +34,7 @@ export default function BlogPage() {
       </nav>
 
       {/* Header */}
-      <header style={{ paddingTop: 120 }} className="pb-10 px-6">
+      <header style={{ paddingTop: 96 }} className="pb-10 px-6">
         <div className="max-w-3xl mx-auto">
           <span
             className="mono text-xs tracking-widest uppercase inline-flex items-center gap-2 mb-6"
@@ -59,7 +60,7 @@ export default function BlogPage() {
           <p className="text-sm" style={{ color: "var(--color-text-tertiary)" }}>No posts yet. Check back Monday.</p>
         ) : (
           <div className="space-y-0">
-            {posts.map((post) => (
+            {posts.map((post, idx) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
@@ -67,7 +68,7 @@ export default function BlogPage() {
               >
                 <article
                   className="py-6"
-                  style={{ borderBottom: "1px solid var(--color-border-subtle)" }}
+                  style={{ borderBottom: idx < posts.length - 1 ? "1px solid var(--color-border-subtle)" : "none" }}
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 min-w-0">
@@ -78,8 +79,8 @@ export default function BlogPage() {
                           year: "numeric",
                         })}
                       </p>
-                      <h2 className="text-base font-semibold mb-1.5 transition-colors" style={{ color: "var(--color-text-primary)" }}>
-                        <span className="group-hover:text-emerald-accent">{post.title}</span>
+                      <h2 className="text-base font-semibold mb-1.5">
+                        <span className="post-title">{post.title}</span>
                       </h2>
                       <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
                         {post.excerpt}

@@ -88,7 +88,7 @@ function parseLinkEntries(raw: string): LinkEntry[] {
 
     // Regex fallback: extract title + url per object block
     const entries: LinkEntry[] = [];
-    const blockPattern = /\{[^{}]*?id:\s*"([^"]+)"[^{}]*?url:\s*"([^"]+)"[^{}]*?title:\s*"([^"]+)"[^{}]*?\}/gs;
+    const blockPattern = new RegExp('\\{[^{}]*?id:\\s*"([^"]+)"[^{}]*?url:\\s*"([^"]+)"[^{}]*?title:\\s*"([^"]+)"[^{}]*?\\}', 'gs');
     let match;
     while ((match = blockPattern.exec(raw)) !== null) {
       entries.push({

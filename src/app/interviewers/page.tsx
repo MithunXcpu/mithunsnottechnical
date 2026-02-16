@@ -97,12 +97,13 @@ export default function InterviewersPage() {
             <Link href="/interviewers" className="nav-link" style={{ color: "var(--green)" }}>For Interviewers</Link>
             <a href="/#about" className="nav-link">About</a>
             <a href="https://github.com/MithunXcpu" target="_blank" rel="noopener noreferrer" className="nav-link">GitHub</a>
+            <a href="https://linkedin.com/in/mithun-manjunatha" target="_blank" rel="noopener noreferrer" className="nav-link">LinkedIn</a>
           </div>
         </div>
       </nav>
 
       {/* Header */}
-      <header style={{ paddingTop: 120 }} className="pb-10 px-6">
+      <header style={{ paddingTop: 96 }} className="pb-10 px-6">
         <div className="max-w-3xl mx-auto">
           <span
             className="mono text-xs tracking-widest uppercase inline-flex items-center gap-2 mb-6"
@@ -137,21 +138,21 @@ export default function InterviewersPage() {
         </span>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            { num: "$3M+", label: "ARR closed" },
-            { num: "7", label: "Years in SaaS" },
-            { num: "100+", label: "Deals supported" },
-            { num: "300%+", label: "ROI delivered" },
+            { num: "$3M+", label: "ARR closed", featured: true },
+            { num: "7", label: "Years in SaaS", featured: false },
+            { num: "100+", label: "Deals supported", featured: false },
+            { num: "300%+", label: "ROI delivered", featured: true },
           ].map((s) => (
             <div
               key={s.label}
               className="rounded-2xl p-5 text-center"
               style={{
-                background: "var(--color-surface-raised)",
-                border: "1px solid var(--color-border-subtle)",
+                background: s.featured ? "rgba(16, 185, 129, 0.08)" : "var(--color-surface-raised)",
+                border: s.featured ? "1px solid rgba(16, 185, 129, 0.25)" : "1px solid var(--color-border-subtle)",
               }}
             >
-              <p className="text-2xl font-bold font-display italic" style={{ color: "var(--green-light)" }}>{s.num}</p>
-              <p className="text-xs mt-1" style={{ color: "var(--color-text-tertiary)" }}>{s.label}</p>
+              <p className={`font-bold font-display italic ${s.featured ? "text-3xl" : "text-2xl"}`} style={{ color: "var(--green-light)" }}>{s.num}</p>
+              <p className="text-xs mt-1" style={{ color: s.featured ? "var(--color-text-secondary)" : "var(--color-text-tertiary)" }}>{s.label}</p>
             </div>
           ))}
         </div>
@@ -170,31 +171,31 @@ export default function InterviewersPage() {
         </span>
         <div className="space-y-0">
           {experience.map((job, i) => (
-            <div key={job.co} className="py-5">
-              <div className="flex items-start justify-between gap-4">
+            <div key={job.co} className="py-6">
+              <div className="flex items-start justify-between gap-4 mb-2">
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold" style={{ color: "var(--color-text-primary)" }}>
+                  <p className="text-base font-semibold" style={{ color: "var(--color-text-primary)" }}>
                     {job.co}
-                    <span style={{ color: "var(--color-text-tertiary)", fontWeight: 400 }}>
-                      {" "}— {job.role}
-                    </span>
                   </p>
-                  <p className="text-sm leading-relaxed mt-1" style={{ color: "var(--color-text-secondary)" }}>
-                    {job.desc}
-                  </p>
-                  <p className="text-xs mt-2" style={{ color: "var(--color-text-tertiary)", fontStyle: "italic" }}>
-                    {job.context}
+                  <p className="text-sm" style={{ color: "var(--green)" }}>
+                    {job.role}
                   </p>
                 </div>
                 <p
-                  className="mono text-xs flex-shrink-0"
+                  className="mono text-xs flex-shrink-0 mt-1"
                   style={{ fontSize: 11, color: "var(--color-text-tertiary)" }}
                 >
                   {job.dates}
                 </p>
               </div>
+              <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
+                {job.desc}
+              </p>
+              <p className="text-xs mt-2" style={{ color: "var(--color-text-tertiary)", fontStyle: "italic" }}>
+                {job.context}
+              </p>
               {i < experience.length - 1 && (
-                <div className="section-line mt-5" />
+                <div className="section-line mt-6" />
               )}
             </div>
           ))}
@@ -221,11 +222,11 @@ export default function InterviewersPage() {
             <button
               key={i}
               onClick={() => setSelected(selected === i ? null : i)}
-              className="text-left text-sm font-medium px-4 py-2.5 rounded-lg transition-all"
+              className={`question-btn text-left text-sm font-medium px-4 py-2.5 rounded-lg ${selected === i ? "question-btn-active" : ""}`}
               style={{
-                background: selected === i ? "var(--green)" : "var(--color-surface-raised)",
-                color: selected === i ? "#fff" : "var(--color-text-secondary)",
-                border: `1px solid ${selected === i ? "var(--green)" : "var(--color-border-subtle)"}`,
+                background: selected === i ? undefined : "var(--color-surface-raised)",
+                color: selected === i ? undefined : "var(--color-text-secondary)",
+                border: selected === i ? undefined : "1px solid var(--color-border-subtle)",
               }}
             >
               {q.label}
@@ -255,7 +256,7 @@ export default function InterviewersPage() {
           <div
             className="rounded-xl p-5 text-center"
             style={{
-              border: "1px dashed var(--color-border-hover)",
+              border: "1px dashed var(--color-text-tertiary)",
             }}
           >
             <p className="text-sm" style={{ color: "var(--color-text-tertiary)" }}>

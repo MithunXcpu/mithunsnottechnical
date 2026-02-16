@@ -368,7 +368,7 @@ function ProjectCard({ p }: { p: Project }) {
         cursor: "grabbing",
       }}
       variants={fadeUp}
-      className="card block p-6 group cursor-grab active:cursor-grabbing list-none"
+      className="card block p-6 group list-none"
       onMouseMove={handleMouseMove}
     >
       <div onClick={handleClick} className="cursor-pointer">
@@ -467,7 +467,7 @@ export default function Home() {
               Blog
             </a>
             <a href="/interviewers" className="nav-link">
-              Interviewers
+              For Interviewers
             </a>
             <a href="#about" className="nav-link">
               About
@@ -510,10 +510,10 @@ export default function Home() {
           )}
           {/* Gradient fade to surface at bottom */}
           <div
-            className="absolute bottom-0 left-0 right-0 h-64"
+            className="absolute bottom-0 left-0 right-0 h-96"
             style={{
               background:
-                "linear-gradient(to top, var(--color-surface) 0%, transparent 100%)",
+                "linear-gradient(to top, var(--color-surface) 0%, rgba(12,12,12,0.6) 50%, transparent 100%)",
             }}
           />
         </div>

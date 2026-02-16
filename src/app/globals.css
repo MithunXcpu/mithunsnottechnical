@@ -1,6 +1,5 @@
-@import "tailwindcss";
-
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap');
+@import "tailwindcss";
 
 @theme inline {
   --font-sans: var(--font-geist-sans);
@@ -84,7 +83,7 @@ body {
   border-radius: inherit;
   background: radial-gradient(
     600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgba(16, 185, 129, 0.06),
+    rgba(16, 185, 129, 0.1),
     transparent 40%
   );
   opacity: 0;
@@ -300,13 +299,14 @@ body {
 }
 
 /* ---- Blog Prose (dark) ---- */
-.prose h2 { font-size: 1.25rem; font-weight: 700; margin-top: 2rem; margin-bottom: 0.75rem; color: var(--color-text-primary); }
-.prose h3 { font-size: 1.1rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem; color: var(--color-text-primary); }
-.prose p { font-size: 0.95rem; line-height: 1.75; color: var(--color-text-secondary); margin-bottom: 1.25rem; }
-.prose a { color: var(--green-light); text-decoration: underline; }
+.prose { max-width: 600px; }
+.prose h2 { font-size: 1.5rem; font-weight: 700; margin-top: 2.5rem; margin-bottom: 0.75rem; color: var(--color-text-primary); }
+.prose h3 { font-size: 1.25rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 0.5rem; color: var(--color-text-primary); }
+.prose p { font-size: 1rem; line-height: 1.8; color: var(--color-text-secondary); margin-bottom: 1.25rem; }
+.prose a { color: var(--green-light); text-decoration: underline; transition: color 0.2s ease; }
 .prose a:hover { color: var(--green); }
 .prose ul, .prose ol { padding-left: 1.25rem; margin-bottom: 1.25rem; }
-.prose li { font-size: 0.95rem; line-height: 1.75; color: var(--color-text-secondary); margin-bottom: 0.5rem; }
+.prose li { font-size: 1rem; line-height: 1.8; color: var(--color-text-secondary); margin-bottom: 0.5rem; }
 .prose blockquote {
   border-left: 3px solid var(--green);
   padding-left: 1rem;
@@ -317,6 +317,34 @@ body {
 .prose strong { font-weight: 600; color: var(--color-text-primary); }
 .prose em { font-style: italic; }
 .prose hr { border: none; height: 1px; background: var(--color-border-subtle); margin: 2rem 0; }
+
+/* ---- Blog post title hover ---- */
+.post-title {
+  color: var(--color-text-primary);
+  transition: color 0.2s ease;
+}
+.group:hover .post-title {
+  color: var(--green);
+}
+
+/* ---- Question buttons ---- */
+.question-btn {
+  transition: all 0.2s ease;
+}
+.question-btn:hover {
+  border-color: var(--color-border-hover) !important;
+  color: var(--color-text-primary) !important;
+  background: var(--color-surface-overlay) !important;
+}
+.question-btn-active {
+  background: var(--green) !important;
+  color: #fff !important;
+  border-color: var(--green) !important;
+}
+.question-btn-active:hover {
+  background: var(--green-dark) !important;
+  border-color: var(--green-dark) !important;
+}
 
 /* ---- Utility ---- */
 .mono { font-family: var(--font-code); }
@@ -337,8 +365,6 @@ body {
   height: 2px;
   background: var(--green);
   transform-origin: left;
-  animation: grow-x linear;
-  animation-timeline: scroll();
   z-index: 100;
 }
 @keyframes grow-x {
@@ -351,11 +377,28 @@ body {
   font-family: var(--font-display);
   font-size: 4rem;
   line-height: 1;
-  color: var(--color-border-subtle);
+  color: var(--color-border-hover);
   font-style: italic;
   transition: color 0.3s ease;
 }
 
 .card:hover .project-number {
-  color: rgba(16, 185, 129, 0.2);
+  color: rgba(16, 185, 129, 0.3);
+}
+
+/* ---- Fade-in animation ---- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Scroll progress fade ---- */
+.scroll-progress {
+  opacity: 0;
+  animation: grow-x linear, fadeInProgress 0.3s 0.5s ease forwards;
+  animation-timeline: scroll(), auto;
+}
+
+@keyframes fadeInProgress {
+  to { opacity: 1; }
 }

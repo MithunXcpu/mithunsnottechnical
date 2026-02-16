@@ -205,7 +205,7 @@ export default function ChatWidget() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  placeholder={sent ? "Message sent!" : "Type a message..."}
+                  placeholder="Type a message..."
                   className="flex-1 text-sm bg-transparent outline-none"
                   style={{ color: "var(--color-text-primary)" }}
                   disabled={sending}
