@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import { logToAntFarm } from "./antfarm-logger";
 import { execSync } from "child_process";
 import fs from "fs";
 import path from "path";
@@ -87,6 +88,7 @@ function appendToCatalog(entry: {
 }
 
 async function main() {
+  const startTime = Date.now();
   console.log("Auto-scaffold: checking for pending build...");
 
   const supabase = getSupabase();
@@ -99,6 +101,7 @@ async function main() {
 
   if (error || !data?.value) {
     console.log("No pending auto-build. Exiting.");
+    await logToAntFarm({ agentName: "scaffolder", status: "skipped", durationMs: Date.now() - startTime, resultSummary: "No pending build in queue" });
     process.exit(0);
   }
 
@@ -243,9 +246,18 @@ async function main() {
 
   console.log(`\nAuto-scaffold complete: ${GITHUB_USER}/${build.name}`);
   console.log(`  GitHub: https://github.com/${GITHUB_USER}/${build.name}`);
+
+  await logToAntFarm({
+    agentName: "scaffolder",
+    status: "completed",
+    durationMs: Date.now() - startTime,
+    resultSummary: `Scaffolded: ${GITHUB_USER}/${build.name} (score ${build.score})`,
+    metadata: { project: build.name, score: build.score, techStack: build.techStack },
+  });
 }
 
-main().catch((err) => {
+main().catch(async (err) => {
   console.error("Auto-scaffold failed:", err);
+  await logToAntFarm({ agentName: "scaffolder", status: "failed", durationMs: 0, error: String(err) });
   process.exit(1);
 });

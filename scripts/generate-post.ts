@@ -4,6 +4,7 @@ import Parser from "rss-parser";
 import fs from "fs";
 import path from "path";
 import { checkNewPostAgainstExisting } from "./blog-dedup";
+import { logToAntFarm } from "./antfarm-logger";
 
 const YOUTUBE_RSS =
   "https://www.youtube.com/feeds/videos.xml?channel_id=UCESLZhusAkFfsNsApnjF_Cg";
@@ -59,6 +60,7 @@ function parseResponse(text: string): {
 }
 
 async function main() {
+  const startTime = Date.now();
   console.log("Fetching latest All-In episode from YouTube RSS...");
 
   const parser = new Parser();
@@ -67,6 +69,7 @@ async function main() {
 
   if (!latest || !latest.id) {
     console.log("No episodes found in feed.");
+    await logToAntFarm({ agentName: "writer", status: "skipped", durationMs: Date.now() - startTime, resultSummary: "No episodes in feed" });
     process.exit(0);
   }
 
@@ -81,6 +84,7 @@ async function main() {
     const raw = fs.readFileSync(path.join(POSTS_DIR, file), "utf-8");
     if (raw.includes(videoId) || raw.includes(episodeTitle)) {
       console.log(`Already generated a post for this episode. Skipping.`);
+      await logToAntFarm({ agentName: "writer", status: "skipped", durationMs: Date.now() - startTime, resultSummary: `Duplicate: ${episodeTitle}` });
       process.exit(0);
     }
   }
@@ -107,8 +111,9 @@ async function main() {
   // Call Claude
   console.log("Generating blog post with Claude...");
   const anthropic = new Anthropic();
+  const model = "claude-sonnet-4-20250514";
   const message = await anthropic.messages.create({
-    model: "claude-sonnet-4-20250514",
+    model,
     max_tokens: 1500,
     system: SYSTEM_PROMPT,
     messages: [
@@ -124,6 +129,7 @@ async function main() {
 
   if (!responseText) {
     console.error("Empty response from Claude.");
+    await logToAntFarm({ agentName: "writer", status: "failed", modelUsed: model, inputTokens: message.usage.input_tokens, outputTokens: message.usage.output_tokens, durationMs: Date.now() - startTime, error: "Empty Claude response" });
     process.exit(1);
   }
 
@@ -157,9 +163,21 @@ ${body}
 
   fs.writeFileSync(path.join(POSTS_DIR, filename), fileContent);
   console.log(`Generated: content/posts/${filename}`);
+
+  await logToAntFarm({
+    agentName: "writer",
+    status: "completed",
+    modelUsed: model,
+    inputTokens: message.usage.input_tokens,
+    outputTokens: message.usage.output_tokens,
+    durationMs: Date.now() - startTime,
+    resultSummary: `Generated: ${filename}`,
+    metadata: { episode: episodeTitle, videoId, filename },
+  });
 }
 
-main().catch((err) => {
+main().catch(async (err) => {
   console.error("Fatal error:", err);
+  await logToAntFarm({ agentName: "writer", status: "failed", durationMs: 0, error: String(err) });
   process.exit(1);
 });

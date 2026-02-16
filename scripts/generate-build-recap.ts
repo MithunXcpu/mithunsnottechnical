@@ -2,6 +2,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import fs from "fs";
 import path from "path";
 import { checkNewPostAgainstExisting } from "./blog-dedup";
+import { logToAntFarm } from "./antfarm-logger";
 
 const POSTS_DIR = path.join(process.cwd(), "content/posts");
 const GITHUB_USER = "MithunXcpu";
@@ -159,16 +160,19 @@ function isDuplicate(): boolean {
 }
 
 async function main() {
+  const startTime = Date.now();
   console.log("Generating weekly build recap...");
 
   if (isDuplicate()) {
     console.log("Already generated a build recap for this week. Skipping.");
+    await logToAntFarm({ agentName: "recap-writer", status: "skipped", durationMs: Date.now() - startTime, resultSummary: "Duplicate for this week" });
     process.exit(0);
   }
 
   const activity = await fetchWeeklyActivity();
   if (!activity) {
     console.log("No repo activity this week. Skipping.");
+    await logToAntFarm({ agentName: "recap-writer", status: "skipped", durationMs: Date.now() - startTime, resultSummary: "No activity this week" });
     process.exit(0);
   }
 
@@ -183,8 +187,9 @@ async function main() {
 
   console.log("Calling Claude...");
   const anthropic = new Anthropic();
+  const model = "claude-sonnet-4-20250514";
   const message = await anthropic.messages.create({
-    model: "claude-sonnet-4-20250514",
+    model,
     max_tokens: 1500,
     system: SYSTEM_PROMPT,
     messages: [
@@ -199,6 +204,7 @@ async function main() {
     message.content[0].type === "text" ? message.content[0].text : "";
   if (!responseText) {
     console.error("Empty response from Claude.");
+    await logToAntFarm({ agentName: "recap-writer", status: "failed", modelUsed: model, inputTokens: message.usage.input_tokens, outputTokens: message.usage.output_tokens, durationMs: Date.now() - startTime, error: "Empty Claude response" });
     process.exit(1);
   }
 
@@ -232,9 +238,21 @@ ${body}
 
   fs.writeFileSync(path.join(POSTS_DIR, filename), fileContent);
   console.log(`Generated: content/posts/${filename}`);
+
+  await logToAntFarm({
+    agentName: "recap-writer",
+    status: "completed",
+    modelUsed: model,
+    inputTokens: message.usage.input_tokens,
+    outputTokens: message.usage.output_tokens,
+    durationMs: Date.now() - startTime,
+    resultSummary: `Generated: ${filename} (${activity.length} repos)`,
+    metadata: { filename, reposActive: activity.length },
+  });
 }
 
-main().catch((err) => {
+main().catch(async (err) => {
   console.error("Fatal error:", err);
+  await logToAntFarm({ agentName: "recap-writer", status: "failed", durationMs: 0, error: String(err) });
   process.exit(1);
 });

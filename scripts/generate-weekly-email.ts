@@ -3,6 +3,7 @@ import nodemailer from "nodemailer";
 import { createClient } from "@supabase/supabase-js";
 import { repos } from "./repo-catalog";
 import { checkForDuplicates, DedupWarning } from "./blog-dedup";
+import { logToAntFarm } from "./antfarm-logger";
 
 const GITHUB_API = "https://api.github.com";
 
@@ -390,6 +391,7 @@ async function sendEmail(html: string) {
 }
 
 async function main() {
+  const startTime = Date.now();
   console.log("Generating weekly email...");
 
   // Fetch mode + filter repos (infra always included)
@@ -411,8 +413,9 @@ async function main() {
 
   console.log("Calling Claude for recommendations...");
   const anthropic = new Anthropic();
+  const model = "claude-sonnet-4-20250514";
   const message = await anthropic.messages.create({
-    model: "claude-sonnet-4-20250514",
+    model,
     max_tokens: 1000,
     system: SYSTEM_PROMPT,
     messages: [
@@ -427,6 +430,7 @@ async function main() {
     message.content[0].type === "text" ? message.content[0].text : "";
   if (!recommendations) {
     console.error("Empty response from Claude.");
+    await logToAntFarm({ agentName: "emailer", status: "failed", modelUsed: model, inputTokens: message.usage.input_tokens, outputTokens: message.usage.output_tokens, durationMs: Date.now() - startTime, error: "Empty Claude response" });
     process.exit(1);
   }
 
@@ -449,9 +453,21 @@ async function main() {
     autoBuild,
   });
   await sendEmail(html);
+
+  await logToAntFarm({
+    agentName: "emailer",
+    status: "completed",
+    modelUsed: model,
+    inputTokens: message.usage.input_tokens,
+    outputTokens: message.usage.output_tokens,
+    durationMs: Date.now() - startTime,
+    resultSummary: `Weekly email sent (${mode} mode, ${filteredRepos.length} repos, ${scoutPicks.length} scout picks)`,
+    metadata: { mode, repoCount: filteredRepos.length, scoutPicks: scoutPicks.length },
+  });
 }
 
-main().catch((err) => {
+main().catch(async (err) => {
   console.error("Fatal error:", err);
+  await logToAntFarm({ agentName: "emailer", status: "failed", durationMs: 0, error: String(err) });
   process.exit(1);
 });

@@ -101,10 +101,10 @@ const personalProjects: Project[] = [
   },
   {
     name: "Antfarm",
-    tagline: "Autonomous agent task dispatch",
+    tagline: "9 agents, one brain",
     description:
-      "Vercel cron heartbeat dispatches tasks from a Supabase queue to specialized Claude agents. Dashboard shows live agent activity and task results.",
-    tech: ["Next.js", "Claude SDK", "Supabase"],
+      "Multi-agent orchestration hub with 9 specialized agents — writer, scout, sentinel, scaffolder, digest, emailer, recap-writer, auditor, and notifier. Centralized cost tracking, execution logs, and cron scheduling via Supabase.",
+    tech: ["Next.js", "Claude SDK", "Supabase", "Edge Functions"],
     url: "https://antfarm-liart.vercel.app",
     building: true,
     emoji: "08",

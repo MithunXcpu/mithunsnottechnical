@@ -3,6 +3,7 @@ import nodemailer from "nodemailer";
 import fs from "fs";
 import path from "path";
 import { repos } from "./repo-catalog";
+import { logToAntFarm } from "./antfarm-logger";
 
 const GITHUB_API = "https://api.github.com";
 const LINK_VAULT_REPO = "MithunXcpu/link-vault";
@@ -227,11 +228,13 @@ async function sendEmail(html: string) {
 }
 
 async function main() {
+  const startTime = Date.now();
   console.log("Generating Link Vault digest...");
 
   // Duplicate check
   if (isDuplicateDigest()) {
     console.log("Already generated a digest for today. Skipping.");
+    await logToAntFarm({ agentName: "digest", status: "skipped", durationMs: Date.now() - startTime, resultSummary: "Duplicate for today" });
     process.exit(0);
   }
 
@@ -253,8 +256,9 @@ async function main() {
     `Calling Claude to cross-reference ${links.length} links against ${repos.length} projects...`
   );
   const anthropic = new Anthropic();
+  const model = "claude-sonnet-4-20250514";
   const message = await anthropic.messages.create({
-    model: "claude-sonnet-4-20250514",
+    model,
     max_tokens: 4000,
     system: SYSTEM_PROMPT,
     messages: [
@@ -269,6 +273,7 @@ async function main() {
     message.content[0].type === "text" ? message.content[0].text : "";
   if (!digestContent) {
     console.error("Empty response from Claude.");
+    await logToAntFarm({ agentName: "digest", status: "failed", modelUsed: model, inputTokens: message.usage.input_tokens, outputTokens: message.usage.output_tokens, durationMs: Date.now() - startTime, error: "Empty Claude response" });
     process.exit(1);
   }
 
@@ -295,10 +300,22 @@ ${digestContent}
   const emailHtml = buildEmailHtml(digestContent, links.length, repos.length);
   await sendEmail(emailHtml);
 
+  await logToAntFarm({
+    agentName: "digest",
+    status: "completed",
+    modelUsed: model,
+    inputTokens: message.usage.input_tokens,
+    outputTokens: message.usage.output_tokens,
+    durationMs: Date.now() - startTime,
+    resultSummary: `Generated: ${filename} (${links.length} links × ${repos.length} projects)`,
+    metadata: { filename, linksScanned: links.length, projectsChecked: repos.length },
+  });
+
   console.log("Link Vault digest complete.");
 }
 
-main().catch((err) => {
+main().catch(async (err) => {
   console.error("Fatal error:", err);
+  await logToAntFarm({ agentName: "digest", status: "failed", durationMs: 0, error: String(err) });
   process.exit(1);
 });
