@@ -30,10 +30,12 @@ Personal portfolio site with blog automation (All-In Podcast derivative takes) a
 
 ### Content
 - `content/posts/` — Markdown blog posts (frontmatter + body)
+- `content/digests/` — Link Vault digest files (auto-generated)
 
 ### Scripts
 - `scripts/generate-post.ts` — Blog automation script: pulls All-In Podcast transcript, generates derivative take via Claude, commits markdown
-- Run with: `npm run generate-post`
+- `scripts/generate-link-digest.ts` — Link Vault digest: cross-references curated dev links against portfolio projects via Claude, saves digest to `content/digests/`, emails summary
+- Run with: `npm run generate-post` or `npm run link-digest`
 
 ## Commands
 ```bash
@@ -42,6 +44,7 @@ npm run build          # Production build
 npm run start          # Start production server
 npm run lint           # Run ESLint
 npm run generate-post  # Generate a new blog post from All-In Podcast
+npm run link-digest    # Generate Link Vault digest (cross-ref links × projects)
 ```
 
 ## Blog Automation Pipeline
@@ -51,6 +54,16 @@ GitHub Actions cron (Monday 2pm UTC) triggers `generate-post.ts`:
 3. Commits markdown to `content/posts/`
 
 Requires GitHub Secrets: `ANTHROPIC_API_KEY`
+
+## Link Vault Digest Pipeline
+GitHub Actions cron (Wednesday 2pm UTC) triggers `generate-link-digest.ts`:
+1. Fetches 150+ curated links from `MithunXcpu/link-vault` via GitHub API
+2. Cross-references links against 20+ portfolio projects via Claude
+3. Generates 8-15 actionable matches with ready-to-paste Claude prompts
+4. Saves digest to `content/digests/YYYY-MM-DD-link-vault-digest.md`
+5. Emails formatted summary via Gmail
+
+Requires GitHub Secrets: `ANTHROPIC_API_KEY`, `GH_PAT`, `GMAIL_USER`, `GMAIL_APP_PASSWORD`
 
 ## Conventions
 - Accent color: emerald (`--color-primary`)

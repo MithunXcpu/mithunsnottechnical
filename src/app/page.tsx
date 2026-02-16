@@ -746,7 +746,7 @@ export default function Home() {
             <motion.div
               className="lg:col-span-2"
               initial="hidden"
-              whileInView="visible"
+              whileInView="show"
               viewport={{ once: true, amount: 0.3 }}
               variants={fadeUp}
             >
@@ -779,7 +779,7 @@ export default function Home() {
             <motion.div
               className="lg:col-span-3"
               initial="hidden"
-              whileInView="visible"
+              whileInView="show"
               viewport={{ once: true, amount: 0.3 }}
               variants={fadeUp}
             >

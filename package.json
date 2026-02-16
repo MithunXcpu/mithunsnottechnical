@@ -9,7 +9,8 @@
     "lint": "eslint",
     "generate-post": "npx tsx scripts/generate-post.ts",
     "generate-recap": "npx tsx scripts/generate-build-recap.ts",
-    "weekly-email": "npx tsx scripts/generate-weekly-email.ts"
+    "weekly-email": "npx tsx scripts/generate-weekly-email.ts",
+    "link-digest": "npx tsx scripts/generate-link-digest.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.73.0",
